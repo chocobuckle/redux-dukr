@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import { default as ReactModal } from 'react-modal'
-import {
-  newDuckTop, pointer, newDuckInputContainer,
-  newDuckInput, submitDuckBtn, darkBtn } from './styles.css'
+import { newDuckTop, pointer, newDuckInputContainer, newDuckInput, submitDuckBtn, darkBtn } from './styles.css'
 import { formatDuck } from 'helpers/utils'
 
 const modalStyles = {
@@ -12,8 +10,8 @@ const modalStyles = {
     height: 220,
     borderRadius: 5,
     background: '#EBEBEB',
-    padding: 0,
-  },
+    padding: 0
+  }
 }
 
 const { object, string, func, bool } = PropTypes
@@ -25,7 +23,7 @@ Modal.propTypes = {
   openModal: func.isRequired,
   duckFanout: func.isRequired,
   updateDuckText: func.isRequired,
-  user: object.isRequired,
+  user: object.isRequired
 }
 
 export default function Modal (props) {
@@ -36,7 +34,7 @@ export default function Modal (props) {
   return (
     <span className={darkBtn} onClick={props.openModal}>
       {'Duck'}
-      <ReactModal style={modalStyles} isOpen={props.isOpen} onRequestClose={props.closeModal}>
+      <ReactModal style={modalStyles} isOpen={props.isOpen} onRequestClose={props.closeModal} contentLabel='Duck Modal'>
         <div className={newDuckTop}>
           <span>{'Compose new Duck'}</span>
           <span onClick={props.closeModal} className={pointer}>{'X'}</span>
@@ -48,7 +46,8 @@ export default function Modal (props) {
             maxLength={140}
             type='text'
             className={newDuckInput}
-            placeholder="What's on your mind?" />
+            placeholder="What's on your mind?"
+          />
         </div>
         <button
           className={submitDuckBtn}
