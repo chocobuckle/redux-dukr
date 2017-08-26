@@ -15,13 +15,15 @@
   plugins: [
     "react",
   ],
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: ["airbnb", "plugin:react/recommended"],
   "rules": {
     "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
+    "arrow-parens": ["error", "as-needed"],
     "array-bracket-spacing": "off",
     "comma-dangle": ["error", "never"],
     "jsx-quotes": ["error", "prefer-single"],
     "func-names": "off",
+    "object-curly-spacing": "off",
     "linebreak-style": "off",
     "no-alert": "off",
     "no-console": "off",
@@ -31,6 +33,9 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-use-before-define": "off",
     "no-shadow": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
     "react/jsx-closing-bracket-location": [
       "error",
       {
