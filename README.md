@@ -1,9 +1,9 @@
-<img src="http://www.reactjsprogram.com/images/reactjsprogram-500.png" width="250" align="right">
+# Dukr
+## [LIVE DEMO](https://dukr-46b41.firebaseapp.com/)
 
-Redux + Immutable Video Project
-========
+A Twitter clone showcasing my knowledge of Redux, Advanced React, React Router, Firebase, Webpack, ES6, CSS Modules, Facebook authentication, Immutable.js, and error handling. Built while studying the [React Training](https://tylermcginnis.com/courses/redux/) Redux program.
 
-####This is the repository for the project we'll build together for the "Redux + Immutable" course in React.js Program, for more information on the program [click here](http://reactjsprogram.com)
+![Screenshot of Dukr application.](./dukr.png?raw=true "Dukr.")
+## Getting Started
 
-## Notes
-Every video is coincided with a branch. If you want to compare your code with mine or you just want to play around with the code, check out the different branches on this repository.
+Just download the repository, unzip, then navigate to the 'build' folder and click on 'index.html' to open the page in your default browser, or if you're feeling lazy then just click [here](https://dukr-46b41.firebaseapp.com/) to view the live version via GitHub Pages.
