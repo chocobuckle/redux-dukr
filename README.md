@@ -1,7 +1,7 @@
 # Dukr
 ## [LIVE DEMO](https://dukr-46b41.firebaseapp.com/)
 
-A Twitter clone showcasing my knowledge of Redux, Advanced React, React Router, Firebase, Webpack, ES6, CSS Modules, Facebook authentication, Immutable.js, and error handling. Built while studying the [React Training](https://tylermcginnis.com/courses/redux/) Redux program.
+A Twitter clone showcasing my knowledge of Redux, Advanced React, React Router, Firebase, Webpack, ES6, CSS Modules, Facebook authentication, and error handling. Built while studying the [React Training](https://tylermcginnis.com/courses/redux/) Redux program.
 
 ![Screenshot of Dukr application.](./dukr.png?raw=true "Dukr.")
 ## Getting Started
