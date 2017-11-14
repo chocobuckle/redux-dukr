@@ -1,67 +1,66 @@
-import { fetchUsersDucks } from 'helpers/api';
-import { addMultipleDucks } from './ducks';
-import initialState from './initialState';
+import { fetchUsersDucks } from 'helpers/api'
+import { addMultipleDucks } from 'redux/modules/ducks'
 
-const FETCHING_USERS_DUCKS = 'FETCHING_USERS_DUCKS';
-const FETCHING_USERS_DUCKS_ERROR = 'FETCHING_USERS_DUCKS_ERROR';
-const FETCHING_USERS_DUCKS_SUCCESS = 'FETCHING_USERS_DUCKS_SUCCESS';
-const ADD_SINGLE_USERS_DUCK = 'ADD_SINGLE_USERS_DUCK';
+const FETCHING_USERS_DUCKS = 'FETCHING_USERS_DUCKS'
+const FETCHING_USERS_DUCKS_ERROR = 'FETCHING_USERS_DUCKS_ERROR'
+const FETCHING_USERS_DUCKS_SUCCESS = 'FETCHING_USERS_DUCKS_SUCCESS'
+const ADD_SINGLE_USERS_DUCK = 'ADD_SINGLE_USERS_DUCK'
 
-function fetchingUsersDucks(uid) {
+function fetchingUsersDucks (uid) {
   return {
     type: FETCHING_USERS_DUCKS,
-    uid
-  };
+    uid,
+  }
 }
 
-function fetchingUsersDucksError(error) {
-  console.warn(error);
+function fetchingUsersDucksError (error) {
+  console.warn(error)
   return {
     type: FETCHING_USERS_DUCKS_ERROR,
-    error: 'Error fetching Users Duck Ids'
-  };
+    error: 'Error fetching Users Duck Ids',
+  }
 }
 
-function fetchingUsersDucksSuccess(uid, duckIds, lastUpdated) {
+function fetchingUsersDucksSuccess (uid, duckIds, lastUpdated) {
   return {
     type: FETCHING_USERS_DUCKS_SUCCESS,
     uid,
     duckIds,
-    lastUpdated
-  };
+    lastUpdated,
+  }
 }
 
-export function addSingleUsersDuck(uid, duckId) {
+export function addSingleUsersDuck (uid, duckId) {
   return {
     type: ADD_SINGLE_USERS_DUCK,
     uid,
-    duckId
-  };
+    duckId,
+  }
 }
 
 const initialUsersDuckState = {
   lastUpdated: 0,
-  duckIds: []
-};
+  duckIds: [],
+}
 
-function usersDuck(state = initialUsersDuckState, action) {
+function usersDuck (state = initialUsersDuckState, action) {
   switch (action.type) {
     case ADD_SINGLE_USERS_DUCK :
       return {
         ...state,
-        duckIds: state.duckIds.concat([action.duckId])
-      };
+        duckIds: state.duckIds.concat([action.duckId]),
+      }
     default :
-      return state;
+      return state
   }
 }
 
-export function fetchAndHandleUsersDucks(uid) {
-  return (dispatch, getState) => {
-    dispatch(fetchingUsersDucks());
+export function fetchAndHandleUsersDucks (uid) {
+  return function (dispatch, getState) {
+    dispatch(fetchingUsersDucks())
 
     fetchUsersDucks(uid)
-      .then(ducks => dispatch(addMultipleDucks(ducks)))
+      .then((ducks) => dispatch(addMultipleDucks(ducks)))
       .then(({ducks}) => dispatch(
         fetchingUsersDucksSuccess(
           uid,
@@ -69,23 +68,28 @@ export function fetchAndHandleUsersDucks(uid) {
           Date.now())
         )
       )
-      .catch(error => dispatch(fetchingUsersDucksError(error)));
-  };
+      .catch((error) => dispatch(fetchingUsersDucksError(error)))
+  }
 }
 
-export default function usersDucks(state = initialState.usersDucks, action) {
+const initialState = {
+  isFetching: true,
+  error: '',
+}
+
+export default function usersDucks (state = initialState, action) {
   switch (action.type) {
     case FETCHING_USERS_DUCKS :
       return {
         ...state,
-        isFetching: true
-      };
+        isFetching: true,
+      }
     case FETCHING_USERS_DUCKS_ERROR :
       return {
         ...state,
         isFetching: false,
-        error: action.error
-      };
+        error: action.error,
+      }
     case FETCHING_USERS_DUCKS_SUCCESS :
       return {
         ...state,
@@ -93,9 +97,9 @@ export default function usersDucks(state = initialState.usersDucks, action) {
         error: '',
         [action.uid]: {
           lastUpdated: action.lastUpdated,
-          duckIds: action.duckIds
-        }
-      };
+          duckIds: action.duckIds,
+        },
+      }
     case ADD_SINGLE_USERS_DUCK :
       return typeof state[action.uid] === 'undefined'
         ? state
@@ -103,9 +107,9 @@ export default function usersDucks(state = initialState.usersDucks, action) {
           ...state,
           isFetching: false,
           error: '',
-          [action.uid]: usersDuck(state[action.uid], action)
-        };
+          [action.uid]: usersDuck(state[action.uid], action),
+        }
     default :
-      return state;
+      return state
   }
 }

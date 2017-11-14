@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Duck } from 'components';
-import * as usersLikesActionCreators from 'redux/modules/usersLikes';
 
-const { func, object, bool, number } = PropTypes;
+import React, { PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Duck } from 'components'
+import * as usersLikesAction from 'redux/modules/usersLikes'
+const { func, object, bool, number } = PropTypes
 
 const DuckContainer = React.createClass({
   propTypes: {
@@ -15,48 +15,46 @@ const DuckContainer = React.createClass({
     isLiked: bool.isRequired,
     numberOfLikes: number,
     addAndHandleLike: func.isRequired,
-    handleDeleteLike: func.isRequired
+    handleDeleteLike: func.isRequired,
   },
   contextTypes: {
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
   },
-  getDefaultProps() {
+  getDefaultProps () {
     return {
       hideReplyBtn: false,
-      hideLikeCount: true
-    };
+      hideLikeCount: true,
+    }
   },
-  goToProfile(e) {
-    e.stopPropagation();
-    this.context.router.push(`/${this.props.duck.uid}`);
+  goToProfile (e) {
+    e.stopPropagation()
+    this.context.router.push('/' + this.props.duck.uid)
   },
-  handleClick(e) {
-    e.preventDefault();
-    this.context.router.push(`/duckDetail/${this.props.duck.duckId}`);
+  handleClick (e) {
+    e.preventDefault()
+    this.context.router.push('/duckDetail/' + this.props.duck.duckId)
   },
-  render() {
+  render () {
     return (
       <Duck
         goToProfile={this.goToProfile}
         onClick={this.props.hideReplyBtn === true ? null : this.handleClick}
-        {...this.props}
-      />
-    );
-  }
-});
+        {...this.props} />
+    )
+  },
+})
 
-function mapStateToProps({ducks, likeCount, usersLikes}, props) {
+function mapStateToProps ({ducks, likeCount, usersLikes}, props) {
   return {
     duck: ducks[props.duckId],
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
     isLiked: usersLikes[props.duckId] === true,
-    numberOfLikes: likeCount[props.duckId]
-  };
+    numberOfLikes: likeCount[props.duckId],
+  }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(usersLikesActionCreators, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DuckContainer);
+export default connect(
+  mapStateToProps,
+  (dispatch) => bindActionCreators(usersLikesAction, dispatch)
+)(DuckContainer)

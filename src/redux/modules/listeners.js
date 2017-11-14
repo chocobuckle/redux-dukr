@@ -1,22 +1,20 @@
-import initialState from './initialState';
+const ADD_LISTENER = 'ADD_LISTENER'
 
-const ADD_LISTENER = 'ADD_LISTENER';
-
-export function addListener(listenerId) {
+export function addListener (listenerId) {
   return {
     type: ADD_LISTENER,
-    listenerId
-  };
+    listenerId,
+  }
 }
 
-export default function listeners(state = initialState.listeners, action) {
+export default function listeners (state = {}, action) {
   switch (action.type) {
     case ADD_LISTENER :
       return {
         ...state,
-        [action.listenerId]: true
-      };
+        [action.listenerId]: true,
+      }
     default :
-      return state;
+      return state
   }
 }

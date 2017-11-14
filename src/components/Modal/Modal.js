@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
-import { default as ReactModal } from 'react-modal';
-import { newDuckTop, pointer, newDuckInputContainer, newDuckInput, submitDuckBtn, darkBtn } from './styles.css';
-import { formatDuck } from 'helpers/utils';
+import React, { PropTypes } from 'react'
+import { default as ReactModal } from 'react-modal'
+import { newDuckTop, pointer, newDuckInputContainer, newDuckInput, submitDuckBtn, darkBtn } from './styles.css'
+import { formatDuck } from 'helpers/utils'
 
 const modalStyles = {
   content: {
@@ -12,9 +12,9 @@ const modalStyles = {
     background: '#EBEBEB',
     padding: 0
   }
-};
+}
 
-const { object, string, func, bool } = PropTypes;
+const { object, string, func, bool } = PropTypes
 Modal.propTypes = {
   duckText: string.isRequired,
   closeModal: func.isRequired,
@@ -24,11 +24,11 @@ Modal.propTypes = {
   duckFanout: func.isRequired,
   updateDuckText: func.isRequired,
   user: object.isRequired
-};
+}
 
-export default function Modal(props) {
-  function submitDuck() {
-    return props.duckFanout(formatDuck(props.duckText, props.user));
+export default function Modal (props) {
+  function submitDuck () {
+    return props.duckFanout(formatDuck(props.duckText, props.user))
   }
 
   return (
@@ -41,7 +41,7 @@ export default function Modal(props) {
         </div>
         <div className={newDuckInputContainer}>
           <textarea
-            onChange={e => props.updateDuckText(e.target.value)}
+            onChange={(e) => props.updateDuckText(e.target.value)}
             value={props.duckText}
             maxLength={140}
             type='text'
@@ -53,9 +53,9 @@ export default function Modal(props) {
           className={submitDuckBtn}
           disabled={props.isSubmitDisabled}
           onClick={submitDuck}>
-          {'Duck'}
+            {'Duck'}
         </button>
       </ReactModal>
     </span>
-  );
+  )
 }

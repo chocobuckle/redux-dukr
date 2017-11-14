@@ -1,113 +1,117 @@
-import { saveDuck, fetchDuck } from 'helpers/api';
-import { closeModal } from './modal';
-import { addSingleUsersDuck } from './usersDucks';
-import initialState from './initialState';
+import { saveDuck, fetchDuck } from 'helpers/api'
+import { closeModal } from './modal'
+import { addSingleUsersDuck } from './usersDucks'
 
-const FETCHING_DUCK = 'FETCHING_DUCK';
-const FETCHING_DUCK_ERROR = 'FETCHING_DUCK_ERROR';
-const FETCHING_DUCK_SUCCESS = 'FETCHING_DUCK_SUCCESS';
-const ADD_DUCK = 'ADD_DUCK';
-const ADD_MULTIPLE_DUCKS = 'ADD_MULTIPLE_DUCKS';
-const REMOVE_FETCHING = 'REMOVE_FETCHING';
+const FETCHING_DUCK = 'FETCHING_DUCK'
+const FETCHING_DUCK_ERROR = 'FETCHING_DUCK_ERROR'
+const FETCHING_DUCK_SUCCESS = 'FETCHING_DUCK_SUCCESS'
+const ADD_DUCK = 'ADD_DUCK'
+const ADD_MULTIPLE_DUCKS = 'ADD_MULTIPLE_DUCKS'
+const REMOVE_FETCHING = 'REMOVE_FETCHING'
 
-function fetchingDuck() {
+function fetchingDuck () {
   return {
-    type: FETCHING_DUCK
-  };
+    type: FETCHING_DUCK,
+  }
 }
 
-function fetchingDuckError(error) {
-  console.warn(error);
+function fetchingDuckError (error) {
+  console.warn(error)
   return {
     type: FETCHING_DUCK_ERROR,
-    error: 'Error fetching Duck'
-  };
+    error: 'Error fetching Duck',
+  }
 }
 
-function fetchingDuckSuccess(duck) {
+function fetchingDuckSuccess (duck) {
   return {
     type: FETCHING_DUCK_SUCCESS,
-    duck
-  };
+    duck,
+  }
 }
 
-export function removeFetching() {
+export function removeFetching () {
   return {
-    type: REMOVE_FETCHING
-  };
+    type: REMOVE_FETCHING,
+  }
 }
 
-function addDuck(duck) {
+function addDuck (duck) {
   return {
     type: ADD_DUCK,
-    duck
-  };
+    duck,
+  }
 }
 
-export function addMultipleDucks(ducks) {
+export function addMultipleDucks (ducks) {
   return {
     type: ADD_MULTIPLE_DUCKS,
-    ducks
-  };
+    ducks,
+  }
 }
 
-export function duckFanout(duck) {
-  return (dispatch, getState) => {
-    const uid = getState().users.authedId;
+export function duckFanout (duck) {
+  return function (dispatch, getState) {
+    const uid = getState().users.authedId
     saveDuck(duck)
-      .then(duckWithID => {
-        dispatch(addDuck(duckWithID));
-        dispatch(closeModal());
-        dispatch(addSingleUsersDuck(uid, duckWithID.duckId));
+      .then((duckWithID) => {
+        dispatch(addDuck(duckWithID))
+        dispatch(closeModal())
+        dispatch(addSingleUsersDuck(uid, duckWithID.duckId))
       })
-      .catch(err => {
-        console.warn('Error in duckFanout', err);
-      });
-  };
+      .catch((err) => {
+        console.warn('Error in duckFanout', err)
+      })
+  }
 }
 
-export function fetchAndHandleDuck(duckId) {
-  return (dispatch, getState) => {
-    dispatch(fetchingDuck());
+export function fetchAndHandleDuck (duckId) {
+  return function (dispatch, getState) {
+    dispatch(fetchingDuck())
     fetchDuck(duckId)
-      .then(duck => dispatch(fetchingDuckSuccess(duck)))
-      .catch(error => dispatch(fetchingDuckError(error)));
-  };
+      .then((duck) => dispatch(fetchingDuckSuccess(duck)))
+      .catch((error) => dispatch(fetchingDuckError(error)))
+  }
 }
 
-export default function ducks(state = initialState.ducks, action) {
+const initialState = {
+  isFetching: true,
+  error: '',
+}
+
+export default function ducks (state = initialState, action) {
   switch (action.type) {
     case FETCHING_DUCK :
       return {
         ...state,
-        isFetching: true
-      };
+        isFetching: true,
+      }
     case ADD_DUCK :
     case FETCHING_DUCK_SUCCESS :
       return {
         ...state,
         error: '',
         isFetching: false,
-        [action.duck.duckId]: action.duck
-      };
+        [action.duck.duckId]: action.duck,
+      }
     case FETCHING_DUCK_ERROR :
       return {
         ...state,
         isFetching: false,
-        error: action.error
-      };
+        error: action.error,
+      }
     case REMOVE_FETCHING :
       return {
         ...state,
         error: '',
-        isFetching: false
-      };
+        isFetching: false,
+      }
     case ADD_MULTIPLE_DUCKS :
       return {
         ...state,
-        ...action.ducks
-      };
+        ...action.ducks,
+      }
     default :
-      return state;
+      return state
   }
 }
