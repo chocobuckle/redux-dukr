@@ -1,41 +1,58 @@
-import React, { PropTypes } from 'react'
-import { newDuckContainer, header } from './styles.css'
-import { DuckContainer } from 'containers'
-import { errorMsg } from 'sharedStyles/styles.css'
+import React from 'react';
+import { string, bool, func, arrayOf } from 'prop-types';
+import { DuckContainer } from 'containers';
+import { errorMsg } from 'sharedStyles/styles.css';
+import { newDuckContainer, header } from './styles.css';
 
 NewDucksAvailable.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-}
+  handleClick: func.isRequired
+};
 
-function NewDucksAvailable ({handleClick}) {
+function NewDucksAvailable({ handleClick }) {
   return (
-    <div className={newDuckContainer} onClick={handleClick}>
+    <div
+      className={newDuckContainer}
+      onClick={handleClick}
+      role='link'
+      tabIndex={0}
+    >
       {'New Ducks Available'}
     </div>
-  )
+  );
 }
 
 Feed.propTypes = {
-  duckIds: PropTypes.array.isRequired,
-  error: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  newDucksAvailable: PropTypes.bool.isRequired,
-  resetNewDucksAvailable: PropTypes.func.isRequired,
-}
+  duckIds: arrayOf(string).isRequired,
+  error: string.isRequired,
+  isFetching: bool.isRequired,
+  newDucksAvailable: bool.isRequired,
+  resetNewDucksAvailable: func.isRequired
+};
 
-export default function Feed (props) {
-  return props.isFetching === true
+function Feed({
+  duckIds,
+  error,
+  isFetching,
+  newDucksAvailable,
+  resetNewDucksAvailable
+}) {
+  return isFetching === true
     ? <h1 className={header}>{'Fetching'}</h1>
     : <div>
-        {props.newDucksAvailable ? <NewDucksAvailable handleClick={props.resetNewDucksAvailable} /> : null}
-        {props.duckIds.length === 0
+      {newDucksAvailable
+        ? <NewDucksAvailable handleClick={resetNewDucksAvailable} />
+        : null}
+      {duckIds.length === 0
             ? <p className={header}>{'This is unfortunate.'} <br /> {'It appears there are no ducks yet 😞'}</p>
             : null}
-        {props.duckIds.map((id) => (
-          <DuckContainer
-            duckId={id}
-            key={id} />
+      {duckIds.map(id => (
+        <DuckContainer
+          duckId={id}
+          key={id}
+        />
         ))}
-        {props.error ? <p className={errorMsg}>{props.error}</p> : null}
-      </div>
+      {error ? <p className={errorMsg}>{error}</p> : null}
+    </div>;
 }
+
+export default Feed;

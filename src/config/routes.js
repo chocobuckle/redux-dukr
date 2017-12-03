@@ -1,10 +1,10 @@
-import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import React from 'react';
+import { Router, Route, IndexRoute } from 'react-router';
 import {
   MainContainer, HomeContainer, AuthenticateContainer, FeedContainer,
-  LogoutContainer, UserContainer, DuckDetailsContainer } from 'containers'
+  LogoutContainer, UserContainer, DuckDetailsContainer } from 'containers';
 
-export default function getRoutes (checkAuth, history) {
+export default function getRoutes(checkAuth, history) {
   return (
     <Router history={history}>
       <Route path='/' component={MainContainer}>
@@ -13,8 +13,8 @@ export default function getRoutes (checkAuth, history) {
         <Route path='logout' component={LogoutContainer} />
         <Route path='/:uid' component={UserContainer} onEnter={checkAuth} />
         <Route path='duckDetail/:duckId' component={DuckDetailsContainer} onEnter={checkAuth} />
-        <IndexRoute component={HomeContainer} onEnter={checkAuth}/>
+        <IndexRoute component={HomeContainer} onEnter={checkAuth} />
       </Route>
     </Router>
-  )
+  );
 }

@@ -1,38 +1,47 @@
-
-import React, { PropTypes } from 'react'
-import { DuckContainer } from 'containers'
-import { userContainer, header } from './styles.css'
-import { errorMsg } from 'sharedStyles/styles.css'
+import React from 'react';
+import { bool, string, arrayOf } from 'prop-types';
+import { DuckContainer } from 'containers';
+import { errorMsg } from 'sharedStyles/styles.css';
+import { userContainer, header } from './styles.css';
 
 User.propTypes = {
-  noUser: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
-  duckIds: PropTypes.array.isRequired,
-}
+  duckIds: arrayOf(string).isRequired,
+  error: string.isRequired,
+  isFetching: bool.isRequired,
+  name: string.isRequired,
+  noUser: bool.isRequired
+};
 
-export default function User (props) {
-  return props.noUser === true
-    ? <p className={header}>{'This user doesnt exist. 👽'}</p>
+function User({
+  duckIds,
+  error,
+  isFetching,
+  name,
+  noUser
+}) {
+  return noUser === true
+    ? <p className={header}>{'This user doesnt exist.'}</p>
     : <div>
-        {props.isFetching === true
+      {isFetching === true
           ? <p className={header}>{'Loading'}</p>
           : <div>
-              <div className={userContainer}>
-                <div>{props.name}</div>
-              </div>
-              {props.duckIds.map((id) => (
-                <DuckContainer
-                  duckId={id}
-                  key={id} />
+            <div className={userContainer}>
+              <div>{name}</div>
+            </div>
+            {duckIds.map(id => (
+              <DuckContainer
+                duckId={id}
+                key={id}
+              />
               ))}
-              {props.duckIds.size === 0
+            {duckIds.size === 0
                 ? <p className={header}>
-                    {`It looks like ${props.name.split(' ')[0]} hasn't made any ducks yet.`}
-                  </p>
+                  {`It looks like ${name.split(' ')[0]} hasn't made any ducks yet.`}
+                </p>
                 : null}
-            </div>}
-        {props.error ? <p className={errorMsg}>{props.error}</p> : null}
-      </div>
+          </div>}
+      {error ? <p className={errorMsg}>{error}</p> : null}
+    </div>;
 }
+
+export default User;

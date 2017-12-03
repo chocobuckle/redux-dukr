@@ -1,7 +1,15 @@
-import React, { PropTypes } from 'react'
-import { default as ReactModal } from 'react-modal'
-import { newDuckTop, pointer, newDuckInputContainer, newDuckInput, submitDuckBtn, darkBtn } from './styles.css'
-import { formatDuck } from 'helpers/utils'
+import React from 'react';
+import { objectOf, string, func, bool } from 'prop-types';
+import { default as ReactModal } from 'react-modal'; // eslint-disable-line import/no-named-default
+import { formatDuck } from 'helpers/utils';
+import {
+  newDuckTop,
+  pointer,
+  newDuckInputContainer,
+  newDuckInput,
+  submitDuckBtn,
+  darkBtn
+} from './styles.css';
 
 const modalStyles = {
   content: {
@@ -12,37 +20,44 @@ const modalStyles = {
     background: '#EBEBEB',
     padding: 0
   }
-}
+};
 
-const { object, string, func, bool } = PropTypes
 Modal.propTypes = {
-  duckText: string.isRequired,
   closeModal: func.isRequired,
+  duckFanout: func.isRequired,
+  duckText: string.isRequired,
   isOpen: bool.isRequired,
   isSubmitDisabled: bool.isRequired,
   openModal: func.isRequired,
-  duckFanout: func.isRequired,
   updateDuckText: func.isRequired,
-  user: object.isRequired
-}
+  user: objectOf(string.isRequired).isRequired
+};
 
-export default function Modal (props) {
-  function submitDuck () {
-    return props.duckFanout(formatDuck(props.duckText, props.user))
+function Modal({
+  closeModal,
+  duckFanout,
+  duckText,
+  isOpen,
+  isSubmitDisabled,
+  openModal,
+  updateDuckText,
+  user
+}) {
+  function submitDuck() {
+    return duckFanout(formatDuck(duckText, user));
   }
-
   return (
-    <span className={darkBtn} onClick={props.openModal}>
+    <span className={darkBtn} role='link' tabIndex={0} onClick={openModal}>
       {'Duck'}
-      <ReactModal style={modalStyles} isOpen={props.isOpen} onRequestClose={props.closeModal} contentLabel='Duck Modal'>
+      <ReactModal style={modalStyles} isOpen={isOpen} onRequestClose={closeModal} contentLabel='Duck Modal'>
         <div className={newDuckTop}>
           <span>{'Compose new Duck'}</span>
-          <span onClick={props.closeModal} className={pointer}>{'X'}</span>
+          <span onClick={closeModal} role='button' tabIndex={0} className={pointer}>{'X'}</span>
         </div>
         <div className={newDuckInputContainer}>
           <textarea
-            onChange={(e) => props.updateDuckText(e.target.value)}
-            value={props.duckText}
+            onChange={e => updateDuckText(e.target.value)}
+            value={duckText}
             maxLength={140}
             type='text'
             className={newDuckInput}
@@ -51,11 +66,14 @@ export default function Modal (props) {
         </div>
         <button
           className={submitDuckBtn}
-          disabled={props.isSubmitDisabled}
-          onClick={submitDuck}>
-            {'Duck'}
+          disabled={isSubmitDisabled}
+          onClick={submitDuck}
+        >
+          {'Duck'}
         </button>
       </ReactModal>
     </span>
-  )
+  );
 }
+
+export default Modal;

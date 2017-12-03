@@ -13,35 +13,22 @@
     }
   },
   plugins: [
-    "react",
+    "react"
   ],
-  extends: ["airbnb", "plugin:react/recommended"],
+  extends: [
+    "airbnb",
+    "plugin:react/recommended"
+  ],
   "rules": {
-    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
-    "arrow-parens": ["error", "as-needed"],
-    "array-bracket-spacing": "off",
+    "arrow-parens": "off",
     "comma-dangle": ["error", "never"],
-    "jsx-quotes": ["error", "prefer-single"],
-    "func-names": "off",
     "object-curly-spacing": "off",
-    "linebreak-style": "off",
-    "no-alert": "off",
-    "no-console": "off",
     "react/jsx-filename-extension": "off",
-    "no-extend-native": "off",
-    "no-param-reassign": ["error", { "props": false }],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "jsx-quotes": ["error", "prefer-single"],
     "no-use-before-define": "off",
-    "no-shadow": "off",
-    "import/no-extraneous-dependencies": "off",
+    "react/require-default-props": "off",
     "import/extensions": "off",
-    "import/no-unresolved": "off",
-    "react/jsx-closing-bracket-location": [
-      "error",
-      {
-        "selfClosing": "tag-aligned",
-        "nonEmpty": "after-props"
-      }
-    ]
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off"
   }
 }

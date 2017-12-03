@@ -1,0 +1,11 @@
+<snippet>
+    <content><![CDATA[
+static contextTypes = {
+  ${0}
+};
+
+]]></content>
+    <tabTrigger>sct</tabTrigger>
+    <scope>source.js</scope>
+    <description>Static Context Types</description>
+</snippet>

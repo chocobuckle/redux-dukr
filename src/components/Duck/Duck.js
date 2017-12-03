@@ -1,56 +1,79 @@
-import React, { PropTypes } from 'react'
-import { formatTimestamp } from 'helpers/utils'
-import Reply from 'react-icons/lib/fa/mail-reply'
-import Star from 'react-icons/lib/fa/star'
+import React from 'react';
+import { shape, string, number, func, bool } from 'prop-types';
+import { formatTimestamp } from 'helpers/utils';
+import Reply from 'react-icons/lib/fa/mail-reply';
+import Star from 'react-icons/lib/fa/star';
 import {
   duckContainer, contentContainer, avatar, actionContainer,
-  header, text, likeReplyContainer, icon, likedIcon, author,
-} from './styles.css'
+  header, text, likeReplyContainer, icon, likedIcon, author
+} from './styles.css';
 
 Duck.propTypes = {
-  duck: PropTypes.shape({
-    avatar: PropTypes.string.isRequired,
-    duckId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    timestamp: PropTypes.number.isRequired,
-    uid: PropTypes.string.isRequired,
+  duck: shape({
+    avatar: string.isRequired,
+    duckId: string.isRequired,
+    name: string.isRequired,
+    text: string.isRequired,
+    timestamp: number.isRequired,
+    uid: string.isRequired
   }),
-  onClick: PropTypes.func,
-  isLiked: PropTypes.bool.isRequired,
-  addAndHandleLike: PropTypes.func.isRequired,
-  handleDeleteLike: PropTypes.func.isRequired,
-  numberOfLikes: PropTypes.number,
-  hideReplyBtn: PropTypes.bool.isRequired,
-  hideLikeCount: PropTypes.bool.isRequired,
-  goToProfile: PropTypes.func.isRequired,
-}
+  onClick: func,
+  isLiked: bool.isRequired,
+  addAndHandleLike: func.isRequired,
+  handleDeleteLike: func.isRequired,
+  numberOfLikes: number,
+  hideReplyBtn: bool.isRequired,
+  hideLikeCount: bool.isRequired,
+  goToProfile: func.isRequired
+};
 
-export default function Duck (props) {
-  const starIcon = props.isLiked === true ? likedIcon : icon
-  const starFn = props.isLiked === true ? props.handleDeleteLike : props.addAndHandleLike
+function Duck({
+  duck,
+  onClick,
+  isLiked,
+  addAndHandleLike,
+  handleDeleteLike,
+  numberOfLikes,
+  hideReplyBtn,
+  hideLikeCount,
+  goToProfile
+}) {
+  const starIcon = isLiked === true ? likedIcon : icon;
+  const starFn = isLiked === true ? handleDeleteLike : addAndHandleLike;
   return (
     <div
       className={duckContainer}
-      style={{cursor: props.hideReplyBtn === true ? 'default' : 'pointer'}}
-      onClick={props.onClick}>
-        <img src={props.duck.avatar} className={avatar}/>
-        <div className={contentContainer}>
-          <div className={header}>
-            <div onClick={props.goToProfile} className={author}>{props.duck.name}</div>
-            <div>{formatTimestamp(props.duck.timestamp)}</div>
+      style={{cursor: hideReplyBtn === true ? 'default' : 'pointer'}}
+      onClick={onClick}
+      role='link'
+      tabIndex={0}
+    >
+      <img src={duck.avatar} className={avatar} alt='facebook avatar' />
+      <div className={contentContainer}>
+        <div className={header}>
+          <div
+            onClick={goToProfile}
+            className={author}
+            role='link'
+            tabIndex={0}
+          >
+            {duck.name}
           </div>
-          <div className={text}>{props.duck.text}</div>
-          <div className={likeReplyContainer}>
-            {props.hideReplyBtn === true
+          <div>{formatTimestamp(duck.timestamp)}</div>
+        </div>
+        <div className={text}>{duck.text}</div>
+        <div className={likeReplyContainer}>
+          {hideReplyBtn === true
               ? null
               : <Reply className={icon} />}
-            <div className={actionContainer}>
-              <Star className={starIcon} onClick={(e) => starFn(props.duck.duckId, e)} />
-              {props.hideLikeCount === true ? null : <div>{props.numberOfLikes}</div>}
-            </div>
+          <div className={actionContainer}>
+            <Star className={starIcon} onClick={e => starFn(duck.duckId, e)} />
+            {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
           </div>
         </div>
+      </div>
     </div>
-  )
+  );
 }
+
+export default Duck;
