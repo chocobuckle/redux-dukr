@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { bool, func, object, oneOfType, string } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'components';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as usersLikesActionCreators from 'ducks/usersLikes';
 import * as userActionCreators from 'ducks/users';
 import { formatUserInfo } from 'helpers/utils';
 import { firebaseAuth } from 'config/constants';
-import { container, innerContainer } from './styles.css';
 
 class MainContainer extends Component {
   static propTypes = {
@@ -47,14 +47,23 @@ class MainContainer extends Component {
   render() {
     return this.props.isFetching === true
       ? null
-      : <div className={container}>
+      : <OuterWrapper>
         <Navigation isAuthed={this.props.isAuthed} />
-        <div className={innerContainer}>
+        <InnerWrapper>
           {this.props.children}
-        </div>
-      </div>;
+        </InnerWrapper>
+      </OuterWrapper>;
   }
 }
+
+const OuterWrapper = styled.div`
+  width: 100%;
+`;
+
+const InnerWrapper = styled.div`
+  max-width: 900px;
+  margin: 0px auto;
+`;
 
 function mapStateToProps(state) {
   const { isAuthed, isFetching } = state.users;
