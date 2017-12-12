@@ -1,7 +1,7 @@
 # Dukr
 ## [LIVE DEMO](https://dukr.conordoyle.io)
 
-A Twitter clone showcasing my knowledge of Redux, Advanced React, React Router, Firebase, Webpack, ES6, CSS Modules, Facebook authentication, and error handling. Built while studying the [React Training](https://tylermcginnis.com/courses/redux/) Redux program.
+A Twitter clone showcasing my knowledge of React, Redux, Firebase, Styled Components, Facebook authentication, React Router, ES6, and Webpack. Built while studying the [React Training](https://tylermcginnis.com/courses/redux/) Redux program.
 
 ![Screenshot of Dukr application.](./dukr.png?raw=true "Dukr.")
 ## Getting Started
