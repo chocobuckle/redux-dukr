@@ -23,7 +23,7 @@ class MainContainer extends Component {
     setUsersLikes: func.isRequired
   };
 
-  static contextTypes: {
+  static contextTypes = {
     router: object.isRequired
   };
 

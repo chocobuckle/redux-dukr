@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 import { func, bool } from 'prop-types';
-import { button } from './styles.css';
 
 FacebookAuthButton.propTypes = {
   onAuth: func.isRequired,
@@ -9,12 +9,26 @@ FacebookAuthButton.propTypes = {
 
 function FacebookAuthButton({ onAuth, isFetching }) {
   return (
-    <button onClick={onAuth} className={button}>
+    <Button onClick={onAuth}>
       {isFetching === true
         ? 'Loading'
         : 'Login with Facebook'}
-    </button>
+    </Button>
   );
 }
+
+const Button = styled.button`
+  background: #3B5998;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  border-width: 0;
+  font-size: 25px;
+  cursor: pointer;
+
+  &:hover {
+    background: #1542A0;
+  }
+`;
 
 export default FacebookAuthButton;

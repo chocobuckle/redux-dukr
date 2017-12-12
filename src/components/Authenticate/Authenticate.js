@@ -1,7 +1,8 @@
 import React from 'react';
 import { string, bool, func } from 'prop-types';
-import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles/styles.css';
+import styled from 'styled-components';
 import { FacebookAuthButton } from 'components';
+import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles/styles';
 
 Authenticate.propTypes = {
   error: string.isRequired,
@@ -11,12 +12,24 @@ Authenticate.propTypes = {
 
 function Authenticate({ onAuth, isFetching, error }) {
   return (
-    <div className={centeredContainer}>
-      <h1 className={largeHeader}>{'Authenticate'}</h1>
+    <Wrapper>
+      <Header>{'Authenticate'}</Header>
       <FacebookAuthButton isFetching={isFetching} onAuth={onAuth} />
-      {error ? <p className={errorMsg}>{error}</p> : null}
-    </div>
+      {error ? <ErrorMsg>{error}</ErrorMsg> : null}
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  ${centeredContainer}
+`;
+
+const Header = styled.h1`
+  ${largeHeader}
+`;
+
+const ErrorMsg = styled.p`
+  ${errorMsg}
+`;
 
 export default Authenticate;

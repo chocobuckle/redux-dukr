@@ -1,8 +1,8 @@
 import React from 'react';
 import { bool, string, arrayOf } from 'prop-types';
+import styled from 'styled-components';
 import { DuckContainer } from 'containers';
-import { errorMsg } from 'sharedStyles/styles.css';
-import { userContainer, header } from './styles.css';
+import { errorMsg, subHeader } from 'sharedStyles/styles';
 
 User.propTypes = {
   duckIds: arrayOf(string).isRequired,
@@ -12,6 +12,23 @@ User.propTypes = {
   noUser: bool.isRequired
 };
 
+const Text = styled.p`
+  ${subHeader}
+`;
+
+const Wrapper = styled.div`
+  ${subHeader}
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ErrorMsg = styled.p`
+  ${errorMsg}
+`;
+
 function User({
   duckIds,
   error,
@@ -20,14 +37,14 @@ function User({
   noUser
 }) {
   return noUser === true
-    ? <p className={header}>{'This user doesnt exist.'}</p>
+    ? <Text>{'This user doesnt exist.'}</Text>
     : <div>
       {isFetching === true
-          ? <p className={header}>{'Loading'}</p>
+          ? <Text>{'Loading'}</Text>
           : <div>
-            <div className={userContainer}>
+            <Wrapper>
               <div>{name}</div>
-            </div>
+            </Wrapper>
             {duckIds.map(id => (
               <DuckContainer
                 duckId={id}
@@ -35,12 +52,12 @@ function User({
               />
               ))}
             {duckIds.size === 0
-                ? <p className={header}>
+                ? <Text>
                   {`It looks like ${name.split(' ')[0]} hasn't made any ducks yet.`}
-                </p>
+                </Text>
                 : null}
           </div>}
-      {error ? <p className={errorMsg}>{error}</p> : null}
+      {error ? <ErrorMsg>{error}</ErrorMsg> : null}
     </div>;
 }
 

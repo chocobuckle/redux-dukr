@@ -1,26 +1,9 @@
 import React from 'react';
 import { objectOf, string, func, bool } from 'prop-types';
-import { default as ReactModal } from 'react-modal'; // eslint-disable-line import/no-named-default
+import styled from 'styled-components';
+import { default as DuckModal } from 'react-modal'; // eslint-disable-line import/no-named-default
 import { formatDuck } from 'helpers/utils';
-import {
-  newDuckTop,
-  pointer,
-  newDuckInputContainer,
-  newDuckInput,
-  submitDuckBtn,
-  darkBtn
-} from './styles.css';
-
-const modalStyles = {
-  content: {
-    width: 350,
-    margin: '0px auto',
-    height: 220,
-    borderRadius: 5,
-    background: '#EBEBEB',
-    padding: 0
-  }
-};
+import { baseTextAreaContainer, baseTextArea, darkBtn } from 'sharedStyles/styles';
 
 Modal.propTypes = {
   closeModal: func.isRequired,
@@ -47,33 +30,86 @@ function Modal({
     return duckFanout(formatDuck(duckText, user));
   }
   return (
-    <span className={darkBtn} role='link' tabIndex={0} onClick={openModal}>
+    <DuckButton role='link' tabIndex={0} onClick={openModal}>
       {'Duck'}
-      <ReactModal style={modalStyles} isOpen={isOpen} onRequestClose={closeModal} contentLabel='Duck Modal'>
-        <div className={newDuckTop}>
+      <DuckModal
+        style={duckModalStyles}
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        contentLabel='Duck Modal'
+      >
+        <DuckModalTop>
           <span>{'Compose new Duck'}</span>
-          <span onClick={closeModal} role='button' tabIndex={0} className={pointer}>{'X'}</span>
-        </div>
-        <div className={newDuckInputContainer}>
-          <textarea
+          <CloseModal
+            onClick={closeModal}
+            role='button'
+            tabIndex={0}
+          >{'X'}
+          </CloseModal>
+        </DuckModalTop>
+        <DuckTextAreaWrapper>
+          <DuckTextArea
             onChange={e => updateDuckText(e.target.value)}
             value={duckText}
             maxLength={140}
             type='text'
-            className={newDuckInput}
             placeholder="What's on your mind?"
           />
-        </div>
-        <button
-          className={submitDuckBtn}
+        </DuckTextAreaWrapper>
+        <SubmitDuck
           disabled={isSubmitDisabled}
           onClick={submitDuck}
-        >
-          {'Duck'}
-        </button>
-      </ReactModal>
-    </span>
+        >{'Duck'}
+        </SubmitDuck>
+      </DuckModal>
+    </DuckButton>
   );
 }
+
+const DuckButton = styled.span`
+  ${darkBtn}
+  text-decoration: none;
+`;
+
+const DuckModalTop = styled.div`
+  background: #fff;
+  padding: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1877E6;
+`;
+
+const CloseModal = styled.span`
+  cursor: pointer;
+`;
+
+const DuckTextAreaWrapper = styled.div`
+  ${baseTextAreaContainer}
+`;
+
+const DuckTextArea = styled.textarea`
+  ${baseTextArea}
+  border-width: 0;
+`;
+
+const SubmitDuck = styled.button`
+  ${darkBtn}
+  margin: 0px auto;
+  width: 150px;
+  text-align: center;
+  display: block;
+`;
+
+const duckModalStyles = {
+  content: {
+    width: 350,
+    margin: '0px auto',
+    height: 220,
+    borderRadius: 5,
+    background: '#EBEBEB',
+    padding: 0
+  }
+};
 
 export default Modal;

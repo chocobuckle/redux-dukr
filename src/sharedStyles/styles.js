@@ -1,59 +1,61 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: sans-serif;
-  color: #5F5F5F;
-}
+import { css } from 'styled-components';
 
-.centeredContainer {
+// html, body {}
+//   margin: 0;
+//   padding: 0;
+//   height: 100%;
+//   width: 100%;
+//   font-family: sans-serif;
+//   color: #5F5F5F;
+// }
+
+export const centeredContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
+`;
 
-.largeHeader {
+export const largeHeader = css`
   color: #4a90e2;
   font-weight: 100;
   font-size: 100px;
   margin-bottom: 20px;
-}
+`;
 
-.subHeader {
+export const subHeader = css`
   color: #4a90e2;
   font-size: 35px;
   text-align: center;
   line-height: 55px;
   font-weight: 100;
-}
+`;
 
-.errorMsg {
+export const errorMsg = css`
   color: #FF7777;
   font-size: 22px;
   text-align: center;
-}
+`;
 
-.center {
+export const center = css`
   text-align: center;
-}
+`;
 
-.baseTextAreaContainer {
+export const baseTextAreaContainer = css`
   display: flex;
   height: 110px;
   margin: 10px;
-}
+`;
 
-.baseTextArea {
+export const baseTextArea = css`
   flex: 1;
   border-radius: 3px;
   padding: 8px 10px;
   font-size: 18px;
   resize: none;
-}
+`;
 
-.darkBtn {
+export const darkBtn = css`
   background: #4a90e2;
   color: #fff;
   text-align: center;
@@ -63,32 +65,32 @@ html, body {
   font-size: 16px;
   cursor: pointer;
   border: 1px solid #4a90e2;
-}
 
-.darkBtn:hover {
-  background: #1877E6
-}
+  &:hover {
+    background: #1877E6;
+  }
+`;
 
-.baseDuckContainer {
+export const baseDuckContainer = css`
   border-radius: 5px;
   max-width: 450px;
   margin: 15px auto;
   padding: 10px;
   cursor: pointer;
-}
+`;
 
-.baseAvatar {
+export const baseAvatar = css`
   width: 75px;
   border-radius: 3px;
   margin-right: 15px;
-}
+`;
 
-.clickable {
+export const clickable = css`
   cursor: pointer;
   transition: all .2s ease-in-out;
   cursor: pointer;
-}
 
-.clickable:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
+`;

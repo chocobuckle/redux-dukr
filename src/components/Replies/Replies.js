@@ -1,18 +1,11 @@
 import React from 'react';
-import { bool, string, number, object, instanceOf, shape } from 'prop-types';
+import { bool, string, number, shape } from 'prop-types';
+import styled, { css } from 'styled-components';
 import { formatTimestamp } from 'helpers/utils';
-import { errorMsg } from 'sharedStyles/styles.css';
-import {
-  author,
-  avatar,
-  center,
-  cushion,
-  header,
-  replyContainer
-} from './styles.css';
+import { errorMsg, clickable, baseAvatar, center } from 'sharedStyles/styles';
 
 Reply.propTypes = {
-  comment: shape({
+  reply: shape({
     avatar: string.isRequired,
     name: string.isRequired,
     reply: string.isRequired,
@@ -22,18 +15,50 @@ Reply.propTypes = {
   }).isRequired
 };
 
-function Reply({ comment }) {
+function Reply({ reply }) {
   return (
-    <div className={replyContainer}>
-      <img src={comment.avatar} alt={comment.name} className={avatar} />
+    <ReplyWrapper>
+      <Avatar src={reply.avatar} alt={reply.name} />
       <div>
-        <div className={author}>{comment.name}</div>
-        <div className={cushion}>{formatTimestamp(comment.timestamp)}</div>
-        <div className={cushion}>{comment.reply}</div>
+        <AuthorName>{reply.name}</AuthorName>
+        <ReplyTime>{formatTimestamp(reply.timestamp)}</ReplyTime>
+        <ReplyText>{reply.reply}</ReplyText>
       </div>
-    </div>
+    </ReplyWrapper>
   );
 }
+
+const ReplyWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  font-size: 18px;
+  margin: 7px;
+  padding: 15px;
+`;
+
+const Avatar = styled.img`
+  ${baseAvatar}
+`;
+
+const AuthorName = styled.div`
+  ${clickable}
+  font-weight: bold;
+`;
+
+const Cushion = css`
+  padding: 5px 0;
+`;
+
+const ReplyTime = styled.div`
+  ${Cushion}
+`;
+
+const ReplyText = styled.div`
+  ${Cushion}
+`;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Replies.propTypes = {
   error: string.isRequired,
@@ -52,18 +77,35 @@ function Replies({ replies, error, isFetching }) {
   const replyIds = Object.keys(replies);
   return (
     <div>
-      {error ? <h3 className={errorMsg}>{error}</h3> : null}
+      {error ? <RepliesError>{error}</RepliesError> : null}
       {isFetching === true
         ? <p>{'Fetching Replies'}</p>
         : <div>
-          <h1 className={header}>{'Replies'}</h1>
+          <Header>{'Replies'}</Header>
           {replyIds.map(replyId => (
-            <Reply key={replyId} comment={replies[replyId]} />
+            <Reply key={replyId} reply={replies[replyId]} />
             ))}
         </div>}
-      {replyIds.length === 0 ? <h3 className={center}>{'Be the first to comment. 😎'}</h3> : null}
+      {replyIds.length === 0
+        ? <BeFirstToComment>{'Be the first to comment. 😎'}</BeFirstToComment>
+        : null}
     </div>
   );
 }
+
+const RepliesError = styled.h3`
+  ${errorMsg}
+`;
+
+const Header = styled.h1`
+  text-align: center;
+  font-weight: 100;
+  font-size: 50px;
+  margin-top: 0;
+`;
+
+const BeFirstToComment = styled.h3`
+  ${center}
+`;
 
 export default Replies;

@@ -1,10 +1,16 @@
 import React from 'react';
-import { text } from './styles.css';
+import styled from 'styled-components';
+import { center, subHeader } from 'sharedStyles/styles';
 
 function Logout() {
   return (
-    <div className={text}>{'You are now logged out'}</div>
+    <Text>{'You are now logged out'}</Text>
   );
 }
+
+const Text = styled.div`
+  ${center}
+  ${subHeader}
+`;
 
 export default Logout;
