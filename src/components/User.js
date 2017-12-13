@@ -37,7 +37,7 @@ function User({
   noUser
 }) {
   return noUser === true
-    ? <Text>{'This user doesnt exist.'}</Text>
+    ? <Text>{'This user doesn\'t exist.'}</Text>
     : <div>
       {isFetching === true
           ? <Text>{'Loading'}</Text>
