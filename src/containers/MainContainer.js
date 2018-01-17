@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bool, func, object, oneOfType, string } from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { Navigation } from 'components';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -23,10 +24,6 @@ class MainContainer extends Component {
     setUsersLikes: func.isRequired
   };
 
-  static contextTypes = {
-    router: object.isRequired
-  };
-
   componentDidMount() {
     firebaseAuth().onAuthStateChanged(user => {
       if (user) {
@@ -36,7 +33,7 @@ class MainContainer extends Component {
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now());
         this.props.setUsersLikes();
         if (this.props.location.pathname === '/') {
-          this.context.router.replace('feed');
+          this.props.history.replace('feed');
         }
       } else {
         this.props.removeFetchingUser();
@@ -57,6 +54,9 @@ class MainContainer extends Component {
 }
 
 const OuterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 100%;
 `;
 
@@ -65,8 +65,8 @@ const InnerWrapper = styled.div`
   margin: 0px auto;
 `;
 
-function mapStateToProps(state) {
-  const { isAuthed, isFetching } = state.users;
+function mapStateToProps({ users }) {
+  const { isAuthed, isFetching } = users;
   return {
     isAuthed,
     isFetching
@@ -80,4 +80,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainContainer));

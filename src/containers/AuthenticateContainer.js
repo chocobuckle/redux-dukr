@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, string, object } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import { Authenticate } from 'components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,14 +12,10 @@ class AuthenticateContainer extends Component {
     error: string.isRequired
   };
 
-  static contextTypes = {
-    router: object.isRequired
-  };
-
   handleAuth = (e) => {
     e.preventDefault();
     this.props.fetchAndHandleAuthedUser()
-      .then(() => this.context.router.replace('feed'));
+      .then(() => this.props.history.replace('feed'));
   };
 
   render() {
@@ -33,8 +29,8 @@ class AuthenticateContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { isFetching, error } = state.users;
+function mapStateToProps({ users }) {
+  const { isFetching, error } = users;
   return {
     isFetching,
     error

@@ -12,23 +12,6 @@ User.propTypes = {
   noUser: bool.isRequired
 };
 
-const Text = styled.p`
-  ${subHeader}
-`;
-
-const Wrapper = styled.div`
-  ${subHeader}
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const ErrorMsg = styled.p`
-  ${errorMsg}
-`;
-
 function User({
   duckIds,
   error,
@@ -60,5 +43,22 @@ function User({
       {error ? <ErrorMsg>{error}</ErrorMsg> : null}
     </div>;
 }
+
+const Text = styled.p`
+  ${subHeader}
+`;
+
+const Wrapper = styled.div`
+  ${subHeader}
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ErrorMsg = styled.p`
+  ${errorMsg}
+`;
 
 export default User;

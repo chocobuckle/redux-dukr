@@ -42,26 +42,26 @@ export function resetNewDucksAvailable() {
     type: RESET_NEW_DUCKS_AVAILABLE
   };
 }
-
+/* eslint-disable */
 export function setAndHandleFeedListener() {
   let initialFetch = true;
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     if (getState().listeners.feed === true) {
       return;
     }
 
     dispatch(addListener('feed'));
     dispatch(settingFeedListener());
-    listenToFeed(({feed, sortedIds}) => {
+    listenToFeed(({ feed, sortedIds }) => {
       dispatch(addMultipleDucks(feed));
       initialFetch === true
         ? dispatch(settingFeedListenerSuccess(sortedIds))
         : dispatch(addNewDuckIdToFeed(sortedIds[0]));
       initialFetch = false;
-    }, error => dispatch(settingFeedListenerError(error)));
+    }, (error) => dispatch(settingFeedListenerError(error)));
   };
 }
-
+/* eslint-enable */
 const initialState = {
   newDucksAvailable: false,
   newDucksToAdd: [],

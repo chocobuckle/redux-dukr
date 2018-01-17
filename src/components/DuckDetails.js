@@ -19,12 +19,12 @@ function Reply({ submit }) {
   return (
     <ReplyTextAreaContainer>
       <ReplyTextArea
-        ref={ref => (Reply.ref = ref)} // eslint-disable-line no-return-assign
+        innerRef={ref => (Reply.ref = ref)} // eslint-disable-line no-return-assign
         maxLength={140}
         type='text'
         placeholder='Your reponse'
       />
-      <Button onClick={handleSubmit}>{'Submit'}</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
     </ReplyTextAreaContainer>
   );
 }
@@ -48,7 +48,7 @@ const Button = styled.button`
   ${darkBtn}
 `;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/* ********************************************************************************************** */
 
 DuckDetails.propTypes = {
   authedUser: shape({
@@ -65,21 +65,27 @@ DuckDetails.propTypes = {
 function DuckDetails({ duckId, isFetching, authedUser, error, addAndHandleReply }) {
   return (
     <DuckDetailsWrapper>
-      {isFetching === true
-        ? <Fetching>{'Fetching'}</Fetching>
-        : <DuckContentAndRepliesWrapper>
-          <DuckContent>
-            <DuckContainer duckId={duckId} hideLikeCount={false} hideReplyBtn />
-            <Reply submit={replyText => {
-              addAndHandleReply(duckId, formatReply(authedUser, replyText));
-            }}
-            />
-          </DuckContent>
-          <RepliesWrapper>
-            <RepliesContainer duckId={duckId} />
-          </RepliesWrapper>
-        </DuckContentAndRepliesWrapper>}
-      {error ? <ErrorMsg>{error}</ErrorMsg> : null}
+      {
+        isFetching === true
+          ? <Fetching>Fetching</Fetching>
+          : (
+            <DuckContentAndRepliesWrapper>
+              <DuckContent>
+                <DuckContainer duckId={duckId} hideLikeCount={false} hideReplyBtn />
+                <Reply submit={replyText => {
+                  addAndHandleReply(duckId, formatReply(authedUser, replyText));
+                }}
+                />
+              </DuckContent>
+              <RepliesWrapper>
+                <RepliesContainer duckId={duckId} />
+              </RepliesWrapper>
+            </DuckContentAndRepliesWrapper>
+          )
+      }
+      {
+        error ? <ErrorMsg>{error}</ErrorMsg> : null
+      }
     </DuckDetailsWrapper>
   );
 }

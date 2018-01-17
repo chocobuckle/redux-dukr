@@ -15,13 +15,13 @@ class UserContainer extends Component {
     error: string.isRequired,
     lastUpdated: number.isRequired,
     duckIds: array.isRequired,
-    routeParams: shape({uid: string.isRequired}),
+    params: shape({uid: string.isRequired}),
     fetchAndHandleUsersDucks: func.isRequired,
     fetchAndHandleUser: func.isRequired
   };
 
   componentDidMount() {
-    const uid = this.props.routeParams.uid;
+    const { uid } = this.props.match.params;
     if (this.props.noUser === true || staleUser(this.props.lastUpdated)) {
       this.props.fetchAndHandleUser(uid);
     }
@@ -44,9 +44,10 @@ class UserContainer extends Component {
   }
 }
 
-function mapStateToProps({users, usersDucks}, props) {
-  const specificUsersDucks = usersDucks[props.routeParams.uid];
-  const user = users[props.routeParams.uid];
+function mapStateToProps({ users, usersDucks }, { match }) {
+  const { params } = match;
+  const specificUsersDucks = usersDucks[params.uid];
+  const user = users[params.uid];
   const noUser = typeof user === 'undefined';
   const name = noUser ? '' : user.info.name;
   return {

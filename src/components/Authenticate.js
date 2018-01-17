@@ -13,9 +13,13 @@ Authenticate.propTypes = {
 function Authenticate({ onAuth, isFetching, error }) {
   return (
     <Wrapper>
-      <Header>{'Authenticate'}</Header>
+      <Header>Authenticate</Header>
       <FacebookAuthButton isFetching={isFetching} onAuth={onAuth} />
-      {error ? <ErrorMsg>{error}</ErrorMsg> : null}
+      {
+        error
+          ? <ErrorMsg>{error}</ErrorMsg>
+          : null
+      }
     </Wrapper>
   );
 }

@@ -46,14 +46,14 @@ export function fetchingUserSuccess(uid, user, timestamp) {
 }
 
 export function fetchAndHandleAuthedUser() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(fetchingUser());
-    return auth().then(({user, credential}) => {
+    return auth().then(({ user }) => {
       const userData = user.providerData[0];
       const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid);
       return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()));
     })
-    .then(({user}) => saveUser(user))
+    .then(({ user }) => saveUser(user))
     .then(user => dispatch(authUser(user.uid)))
     .catch(error => dispatch(fetchingUserFailure(error)));
   };

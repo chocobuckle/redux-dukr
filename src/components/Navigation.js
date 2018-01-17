@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool } from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { ModalContainer } from 'containers';
 
 // eslint-disable-next-line no-multi-assign

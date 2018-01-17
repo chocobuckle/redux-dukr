@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { shape, string, number, bool, object } from 'prop-types';
+import { shape, string, number, bool } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Duck } from 'components';
 import * as usersLikesActionCreators from 'ducks/usersLikes';
 
@@ -23,18 +24,14 @@ class DuckContainer extends Component {
     hideLikeCount: true
   };
 
-  static contextTypes = {
-    router: object.isRequired
-  };
-
   goToProfile = (e) => {
     e.stopPropagation();
-    this.context.router.push(`/${this.props.duck.uid}`);
+    this.props.history.push(`/${this.props.duck.uid}`);
   };
 
   handleClick = (e) => {
     e.preventDefault();
-    this.context.router.push(`/duckDetail/${this.props.duck.duckId}`);
+    this.props.history.push(`/duckDetail/${this.props.duck.duckId}`);
   };
 
   render() {
@@ -48,9 +45,10 @@ class DuckContainer extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { ducks, likeCount, usersLikes } = state;
-  const { duckId, hideLikeCount, hideReplyBtn } = props;
+function mapStateToProps(
+  { ducks, likeCount, usersLikes },
+  { duckId, hideLikeCount, hideReplyBtn }
+) {
   return {
     duck: ducks[duckId],
     hideLikeCount,
@@ -66,4 +64,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DuckContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DuckContainer));

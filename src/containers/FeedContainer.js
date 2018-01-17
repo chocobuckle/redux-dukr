@@ -32,7 +32,7 @@ class FeedContainer extends Component {
   }
 }
 
-function mapStateToProps({feed}) {
+function mapStateToProps({ feed }) {
   const { newDucksAvailable, error, isFetching, duckIds } = feed;
   return {
     newDucksAvailable,

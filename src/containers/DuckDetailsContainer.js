@@ -50,14 +50,14 @@ class DuckDetailsContainer extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { ducks, likeCount, users } = state;
+function mapStateToProps({ ducks, likeCount, users }, { match }) {
+  const { params } = match;
   return {
     isFetching: ducks.isFetching || likeCount.isFetching,
     error: ducks.error,
     authedUser: users[users.authedId].info,
-    duckId: props.routeParams.duckId,
-    duckAlreadyFetched: !!ducks[props.routeParams.duckId]
+    duckId: params.duckId,
+    duckAlreadyFetched: !!ducks[params.duckId]
   };
 }
 

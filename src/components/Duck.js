@@ -73,12 +73,18 @@ function Duck({
         </DuckHeader>
         <DuckText>{duck.text}</DuckText>
         <LikeReplyWrapper>
-          {hideReplyBtn === true
+          {
+            hideReplyBtn === true
               ? null
-              : <ReplyIcon />}
+              : <ReplyIcon />
+          }
           <ActionWrapper>
             <Star style={starIcon} onClick={e => starFn(duck.duckId, e)} />
-            {hideLikeCount === true ? null : <div>{numberOfLikes}</div>}
+            {
+              hideLikeCount === true
+                ? null
+                : <div>{numberOfLikes}</div>
+            }
           </ActionWrapper>
         </LikeReplyWrapper>
       </DuckContentWrapper>

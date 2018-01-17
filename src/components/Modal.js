@@ -5,6 +5,8 @@ import { default as DuckModal } from 'react-modal'; // eslint-disable-line impor
 import { formatDuck } from 'helpers/utils';
 import { baseTextAreaContainer, baseTextArea, darkBtn } from 'sharedStyles/styles';
 
+DuckModal.setAppElement('body');
+
 Modal.propTypes = {
   closeModal: func.isRequired,
   duckFanout: func.isRequired,

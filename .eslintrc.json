@@ -1,0 +1,49 @@
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"extends": "airbnb",
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"globals": {},
+	"rules": {
+		"array-bracket-spacing": "off",
+		"arrow-body-style": "off",
+		"arrow-parens": "off",
+		"comma-dangle": ["error", "never"],
+		"func-names": "off",
+		"import/extensions": "off",
+		"import/no-extraneous-dependencies": "off",
+		"import/no-unresolved": "off",
+		"import/no-named-default": "off",
+		"import/prefer-default-export": "off",
+		"indent": "off",
+		"jsx-a11y/anchor-is-valid": "warn",
+		"jsx-quotes": ["error", "prefer-single"],
+		"linebreak-style": "off",
+		"no-alert": "warn",
+		"no-confusing-arrow": "off",
+		"no-console": "warn",
+		"no-extend-native": "off",
+		"no-multi-spaces": "off",
+		"no-param-reassign": ["error", { "props": false }],
+		"no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+		"no-shadow": "warn",
+		"no-unused-vars": "warn",
+		"no-use-before-define": "off",
+		"object-curly-spacing": "off",
+		"object-curly-newline": "off",
+		"react/forbid-prop-types": "warn",
+		"react/jsx-filename-extension": "off",
+		"react/no-typos": "off",
+		"react/require-default-props": "off",
+		"space-before-function-paren": "off"
+	}
+}
