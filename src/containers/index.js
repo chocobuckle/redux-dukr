@@ -8,3 +8,4 @@ export { default as DuckContainer } from './DuckContainer';
 export { default as UserContainer } from './UserContainer';
 export { default as DuckDetailsContainer } from './DuckDetailsContainer';
 export { default as RepliesContainer } from './RepliesContainer';
+export { default as ReplyFormContainer } from './ReplyFormContainer';

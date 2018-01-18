@@ -35,7 +35,7 @@ class ReplyFormContainer extends Component {
         handleSubmit={this.handleSubmit}
         text={this.state.text}
       />
-    )
+    );
   }
 }
 

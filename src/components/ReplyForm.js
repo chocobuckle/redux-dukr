@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string } from 'prop-types';
 import styled from 'styled-components';
-import { darkBtn, baseTextAreaContainer, baseTextArea } from 'sharedStyles/styles';
+import { darkBtn, baseTextAreaContainer, baseTextArea } from 'sharedStyles';
 
 ReplyForm.propTypes = {
   handleOnChange: func.isRequired,

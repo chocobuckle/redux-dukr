@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { saveDuck, fetchDuck } from 'helpers/api';
 import { closeModal } from './modal';
 import { addSingleUsersDuck } from './usersDucks';
@@ -51,26 +52,26 @@ export function addMultipleDucks(ducks) {
 }
 
 export function duckFanout(duck) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const uid = getState().users.authedId;
     saveDuck(duck)
-      .then(duckWithID => {
+      .then((duckWithID) => {
         dispatch(addDuck(duckWithID));
         dispatch(closeModal());
         dispatch(addSingleUsersDuck(uid, duckWithID.duckId));
       })
-      .catch(err => {
-        console.warn('Error in duckFanout', err);
+      .catch((error) => {
+        console.warn('Error in duckFanout: ', error);
       });
   };
 }
 
 export function fetchAndHandleDuck(duckId) {
-  return function (dispatch, getState) {
+  return function(dispatch) {
     dispatch(fetchingDuck());
     fetchDuck(duckId)
-      .then(duck => dispatch(fetchingDuckSuccess(duck)))
-      .catch(error => dispatch(fetchingDuckError(error)));
+      .then((duck) => dispatch(fetchingDuckSuccess(duck)))
+      .catch((error) => dispatch(fetchingDuckError(error)));
   };
 }
 
@@ -81,37 +82,37 @@ const initialState = {
 
 export default function ducks(state = initialState, action) {
   switch (action.type) {
-    case FETCHING_DUCK :
+    case FETCHING_DUCK:
       return {
         ...state,
         isFetching: true
       };
-    case ADD_DUCK :
-    case FETCHING_DUCK_SUCCESS :
+    case ADD_DUCK:
+    case FETCHING_DUCK_SUCCESS:
       return {
         ...state,
         error: '',
         isFetching: false,
         [action.duck.duckId]: action.duck
       };
-    case FETCHING_DUCK_ERROR :
+    case FETCHING_DUCK_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    case REMOVE_FETCHING :
+    case REMOVE_FETCHING:
       return {
         ...state,
         error: '',
         isFetching: false
       };
-    case ADD_MULTIPLE_DUCKS :
+    case ADD_MULTIPLE_DUCKS:
       return {
         ...state,
         ...action.ducks
       };
-    default :
+    default:
       return state;
   }
 }

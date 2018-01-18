@@ -3,7 +3,7 @@ import { objectOf, string, func, bool } from 'prop-types';
 import styled from 'styled-components';
 import { default as DuckModal } from 'react-modal'; // eslint-disable-line import/no-named-default
 import { formatDuck } from 'helpers/utils';
-import { baseTextAreaContainer, baseTextArea, darkBtn } from 'sharedStyles/styles';
+import { baseTextAreaContainer, baseTextArea, darkBtn } from 'sharedStyles';
 
 DuckModal.setAppElement('body');
 
@@ -32,8 +32,13 @@ function Modal({
     return duckFanout(formatDuck(duckText, user));
   }
   return (
-    <DuckButton role='link' tabIndex={0} onClick={openModal}>
-      {'Duck'}
+    <div>
+      <DuckButton
+        role='link'
+        tabIndex={0}
+        onClick={openModal}
+      >Duck
+      </DuckButton>
       <DuckModal
         style={duckModalStyles}
         isOpen={isOpen}
@@ -41,12 +46,12 @@ function Modal({
         contentLabel='Duck Modal'
       >
         <DuckModalTop>
-          <span>{'Compose new Duck'}</span>
+          <span>Compose new Duck</span>
           <CloseModal
             onClick={closeModal}
             role='button'
             tabIndex={0}
-          >{'X'}
+          >X
           </CloseModal>
         </DuckModalTop>
         <DuckTextAreaWrapper>
@@ -61,10 +66,10 @@ function Modal({
         <SubmitDuck
           disabled={isSubmitDisabled}
           onClick={submitDuck}
-        >{'Duck'}
+        >Duck
         </SubmitDuck>
       </DuckModal>
-    </DuckButton>
+    </div>
   );
 }
 
@@ -74,12 +79,12 @@ const DuckButton = styled.span`
 `;
 
 const DuckModalTop = styled.div`
+  align-items: center;
   background: #fff;
-  padding: 11px;
+  color: #1877E6;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: #1877E6;
+  padding: 11px;
 `;
 
 const CloseModal = styled.span`
@@ -97,20 +102,25 @@ const DuckTextArea = styled.textarea`
 
 const SubmitDuck = styled.button`
   ${darkBtn}
-  margin: 0px auto;
-  width: 150px;
-  text-align: center;
   display: block;
+  margin: 0px auto;
+  text-align: center;
+  width: 150px;
+
+  &:disabled {
+    background-color: #c1c1c1;
+    border-color: #c1c1c1;
+  }
 `;
 
 const duckModalStyles = {
   content: {
-    width: 350,
-    margin: '0px auto',
-    height: 220,
-    borderRadius: 5,
     background: '#EBEBEB',
-    padding: 0
+    borderRadius: 5,
+    height: 220,
+    margin: '0px auto',
+    padding: 0,
+    width: 350
   }
 };
 

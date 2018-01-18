@@ -4,11 +4,10 @@ import { Modal } from 'components';
 import * as modalActionCreators from 'ducks/modal';
 import * as ducksActionCreators from 'ducks/ducks';
 
-function mapStateToProps(state) {
-  const { modal, users } = state;
+function mapStateToProps({ users, modal }) {
+  const { authedId } = users;
   const { duckText, isOpen } = modal;
   const duckTextLength = duckText.length;
-  const { authedId } = users;
   return {
     duckText,
     isOpen,

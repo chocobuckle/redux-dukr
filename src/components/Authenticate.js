@@ -2,7 +2,7 @@ import React from 'react';
 import { string, bool, func } from 'prop-types';
 import styled from 'styled-components';
 import { FacebookAuthButton } from 'components';
-import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles/styles';
+import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles';
 
 Authenticate.propTypes = {
   error: string.isRequired,

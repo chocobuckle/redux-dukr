@@ -1,45 +1,51 @@
 import React, { Component } from 'react';
 import { bool, func, string } from 'prop-types';
 import { Authenticate } from 'components';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as userActionCreators from 'ducks/users';
+import * as usersActionCreators from 'ducks/users';
 
 class AuthenticateContainer extends Component {
   static propTypes = {
     fetchAndHandleAuthedUser: func.isRequired,
     isFetching: bool.isRequired,
+    isAuthed: bool.isRequired,
     error: string.isRequired
   };
 
   handleAuth = (e) => {
     e.preventDefault();
-    this.props.fetchAndHandleAuthedUser()
-      .then(() => this.props.history.replace('feed'));
+    this.props.fetchAndHandleAuthedUser();
   };
 
   render() {
+    const { isFetching, isAuthed, error } = this.props;
+    if (isAuthed) {
+      return <Redirect to='feed' />;
+    }
     return (
       <Authenticate
         onAuth={this.handleAuth}
-        isFetching={this.props.isFetching}
-        error={this.props.error}
+        isFetching={isFetching}
+        error={error}
       />
     );
   }
 }
 
 function mapStateToProps({ users }) {
-  const { isFetching, error } = users;
+  const { isFetching, isAuthed, error } = users;
   return {
     isFetching,
+    isAuthed,
     error
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    ...userActionCreators
+    ...usersActionCreators
   }, dispatch);
 }
 

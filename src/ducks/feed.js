@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { addListener } from 'ducks/listeners';
 import { listenToFeed } from 'helpers/api';
 import { addMultipleDucks } from 'ducks/ducks';
@@ -42,14 +43,13 @@ export function resetNewDucksAvailable() {
     type: RESET_NEW_DUCKS_AVAILABLE
   };
 }
-/* eslint-disable */
+/* eslint-disable no-unused-expressions */
 export function setAndHandleFeedListener() {
   let initialFetch = true;
   return function(dispatch, getState) {
     if (getState().listeners.feed === true) {
       return;
     }
-
     dispatch(addListener('feed'));
     dispatch(settingFeedListener());
     listenToFeed(({ feed, sortedIds }) => {
@@ -61,7 +61,7 @@ export function setAndHandleFeedListener() {
     }, (error) => dispatch(settingFeedListenerError(error)));
   };
 }
-/* eslint-enable */
+/* eslint-enable no-unused-expressions */
 const initialState = {
   newDucksAvailable: false,
   newDucksToAdd: [],
@@ -72,18 +72,18 @@ const initialState = {
 
 export default function feed(state = initialState, action) {
   switch (action.type) {
-    case SETTING_FEED_LISTENER :
+    case SETTING_FEED_LISTENER:
       return {
         ...state,
         isFetching: true
       };
-    case SETTING_FEED_LISTENER_ERROR :
+    case SETTING_FEED_LISTENER_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    case SETTING_FEED_LISTENER_SUCCESS :
+    case SETTING_FEED_LISTENER_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -91,20 +91,20 @@ export default function feed(state = initialState, action) {
         duckIds: action.duckIds,
         newDucksAvailable: false
       };
-    case ADD_NEW_DUCK_ID_TO_FEED :
+    case ADD_NEW_DUCK_ID_TO_FEED:
       return {
         ...state,
         newDucksToAdd: [action.duckId, ...state.newDucksToAdd],
         newDucksAvailable: true
       };
-    case RESET_NEW_DUCKS_AVAILABLE :
+    case RESET_NEW_DUCKS_AVAILABLE:
       return {
         ...state,
         duckIds: [...state.newDucksToAdd, ...state.duckIds],
         newDucksToAdd: [],
         newDucksAvailable: false
       };
-    default :
+    default:
       return state;
   }
 }

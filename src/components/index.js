@@ -9,3 +9,6 @@ export { default as Duck } from './Duck';
 export { default as User } from './User';
 export { default as DuckDetails } from './DuckDetails';
 export { default as Replies } from './Replies';
+export { default as Reply } from './Reply';
+export { default as ReplyForm } from './ReplyForm';
+export { default as NewDucksAvailable } from './NewDucksAvailable';

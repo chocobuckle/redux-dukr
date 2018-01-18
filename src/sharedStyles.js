@@ -1,34 +1,25 @@
 import { css } from 'styled-components';
 
-// html, body {}
-//   margin: 0;
-//   padding: 0;
-//   height: 100%;
-//   width: 100%;
-//   font-family: sans-serif;
-//   color: #5F5F5F;
-// }
-
 export const centeredContainer = css`
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 export const largeHeader = css`
   color: #4a90e2;
-  font-weight: 100;
   font-size: 100px;
+  font-weight: 100;
   margin-bottom: 20px;
 `;
 
 export const subHeader = css`
   color: #4a90e2;
   font-size: 35px;
-  text-align: center;
-  line-height: 55px;
   font-weight: 100;
+  line-height: 55px;
+  text-align: center;
 `;
 
 export const errorMsg = css`
@@ -48,23 +39,23 @@ export const baseTextAreaContainer = css`
 `;
 
 export const baseTextArea = css`
-  flex: 1;
   border-radius: 3px;
-  padding: 8px 10px;
+  flex: 1;
   font-size: 18px;
+  padding: 8px 10px;
   resize: none;
 `;
 
 export const darkBtn = css`
   background: #4a90e2;
-  color: #fff;
-  text-align: center;
   border-radius: 5px;
-  padding: 10px 15px;
   border-style: none;
-  font-size: 16px;
-  cursor: pointer;
   border: 1px solid #4a90e2;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  text-align: center;
 
   &:hover {
     background: #1877E6;
@@ -73,22 +64,21 @@ export const darkBtn = css`
 
 export const baseDuckContainer = css`
   border-radius: 5px;
-  max-width: 450px;
-  margin: 15px auto;
-  padding: 10px;
   cursor: pointer;
+  margin: 15px auto;
+  max-width: 450px;
+  padding: 10px;
 `;
 
 export const baseAvatar = css`
-  width: 75px;
   border-radius: 3px;
   margin-right: 15px;
+  width: 75px;
 `;
 
 export const clickable = css`
   cursor: pointer;
   transition: all .2s ease-in-out;
-  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);

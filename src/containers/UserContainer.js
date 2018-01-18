@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, bool, number, array, shape, func } from 'prop-types';
+import { string, bool, number, arrayOf, shape, func } from 'prop-types';
 import { User } from 'components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,36 +9,44 @@ import * as usersDucksActionCreators from 'ducks/usersDucks';
 
 class UserContainer extends Component {
   static propTypes = {
+    duckIds: arrayOf(string).isRequired,
+    match: shape({
+      isExact: bool.isRequired,
+      path: string.isRequired,
+      url: string.isRequired,
+      params: shape({
+        uid: string
+      }).isRequired
+    }).isRequired,
     name: string.isRequired,
     noUser: bool.isRequired,
     isFetching: bool.isRequired,
     error: string.isRequired,
     lastUpdated: number.isRequired,
-    duckIds: array.isRequired,
-    params: shape({uid: string.isRequired}),
     fetchAndHandleUsersDucks: func.isRequired,
     fetchAndHandleUser: func.isRequired
   };
 
   componentDidMount() {
-    const { uid } = this.props.match.params;
-    if (this.props.noUser === true || staleUser(this.props.lastUpdated)) {
-      this.props.fetchAndHandleUser(uid);
+    const { noUser, lastUpdated, fetchAndHandleUser, fetchAndHandleUsersDucks, match } = this.props;
+    const { uid } = match.params;
+    if (noUser === true || staleUser(lastUpdated)) {
+      fetchAndHandleUser(uid);
     }
-
-    if (this.props.noUser === true || staleDucks(this.props.lastUpdated)) {
-      this.props.fetchAndHandleUsersDucks(uid);
+    if (noUser === true || staleDucks(lastUpdated)) {
+      fetchAndHandleUsersDucks(uid);
     }
   }
 
   render() {
+    const { noUser, isFetching, name, error, duckIds } = this.props;
     return (
       <User
-        noUser={this.props.noUser}
-        isFetching={this.props.isFetching}
-        name={this.props.name}
-        error={this.props.error}
-        duckIds={this.props.duckIds}
+        noUser={noUser}
+        isFetching={isFetching}
+        name={name}
+        error={error}
+        duckIds={duckIds}
       />
     );
   }
@@ -67,7 +75,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);

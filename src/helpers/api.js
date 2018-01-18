@@ -20,7 +20,6 @@ function saveLikeCount(duckId) {
 
 export function saveDuck(duck) {
   const { duckId, duckPromise } = saveToDucks(duck);
-
   return Promise.all([
     duckPromise,
     saveToUsersDucks(duck, duckId),
@@ -29,7 +28,7 @@ export function saveDuck(duck) {
 }
 
 export function listenToFeed(cb, errorCB) {
-  ref.child('ducks').on('value', snapshot => {
+  ref.child('ducks').on('value', (snapshot) => {
     const feed = snapshot.val() || {};
     const sortedIds = Object.keys(feed).sort((a, b) => feed[b].timestamp - feed[a].timestamp);
     cb({feed, sortedIds});
@@ -38,7 +37,7 @@ export function listenToFeed(cb, errorCB) {
 
 export function fetchUsersLikes(uid) {
   return ref.child(`usersLikes/${uid}`).once('value')
-    .then(snapshot => snapshot.val() || {});
+    .then((snapshot) => snapshot.val() || {});
 }
 
 export function saveToUsersLikes(uid, duckId) {
@@ -61,29 +60,28 @@ export function decrementNumberOfLikes(duckId) {
 
 export function fetchUsersDucks(uid) {
   return ref.child(`usersDucks/${uid}`).once('value')
-    .then(snapshot => snapshot.val() || {});
+    .then((snapshot) => snapshot.val() || {});
 }
 
 export function fetchUser(uid) {
   return ref.child(`users/${uid}`).once('value')
-    .then(snapshot => snapshot.val());
+    .then((snapshot) => snapshot.val());
 }
 
 export function fetchDuck(duckId) {
   return ref.child(`ducks/${duckId}`).once('value')
-    .then(snapshot => snapshot.val());
+    .then((snapshot) => snapshot.val());
 }
 
 export function fetchLikeCount(duckId) {
   return ref.child(`likeCount/${duckId}`).once('value')
-    .then(snapshot => snapshot.val() || 0);
+    .then((snapshot) => snapshot.val() || 0);
 }
 
 export function postReply(duckId, reply) {
   const replyId = ref.child(`replies/${duckId}`).push().key;
   const replyWithId = {...reply, replyId};
   const replyPromise = ref.child(`replies/${duckId}/${replyId}`).set(replyWithId);
-
   return {
     replyWithId,
     replyPromise
@@ -92,5 +90,5 @@ export function postReply(duckId, reply) {
 
 export function fetchReplies(duckId) {
   return ref.child(`replies/${duckId}`).once('value')
-    .then(snapshot => snapshot.val() || {});
+    .then((snapshot) => snapshot.val() || {});
 }

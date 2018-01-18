@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, bool, string, func } from 'prop-types';
+import { arrayOf, bool, string, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Feed } from 'components';
 import { bindActionCreators } from 'redux';
@@ -7,7 +7,7 @@ import * as feedActionCreators from 'ducks/feed';
 
 class FeedContainer extends Component {
   static propTypes = {
-    duckIds: array.isRequired,
+    duckIds: arrayOf(string).isRequired,
     newDucksAvailable: bool.isRequired,
     error: string.isRequired,
     isFetching: bool.isRequired,
@@ -20,13 +20,14 @@ class FeedContainer extends Component {
   }
 
   render() {
+    const { duckIds, newDucksAvailable, error, isFetching, resetNewDucksAvailable } = this.props;
     return (
       <Feed
-        duckIds={this.props.duckIds}
-        newDucksAvailable={this.props.newDucksAvailable}
-        error={this.props.error}
-        isFetching={this.props.isFetching}
-        resetNewDucksAvailable={this.props.resetNewDucksAvailable}
+        duckIds={duckIds}
+        newDucksAvailable={newDucksAvailable}
+        error={error}
+        isFetching={isFetching}
+        resetNewDucksAvailable={resetNewDucksAvailable}
       />
     );
   }

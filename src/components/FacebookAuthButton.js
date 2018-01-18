@@ -21,12 +21,12 @@ function FacebookAuthButton({ onAuth, isFetching }) {
 
 const Button = styled.button`
   background: #3B5998;
-  color: #fff;
-  padding: 15px;
   border-radius: 5px;
   border-width: 0;
-  font-size: 25px;
+  color: #fff;
   cursor: pointer;
+  font-size: 25px;
+  padding: 15px;
 
   &:hover {
     background: #1542A0;

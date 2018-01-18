@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import auth, { logout, saveUser } from 'helpers/auth';
 import { formatUserInfo } from 'helpers/utils';
 import { fetchUser } from 'helpers/api';
@@ -53,14 +54,14 @@ export function fetchAndHandleAuthedUser() {
       const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid);
       return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()));
     })
-    .then(({ user }) => saveUser(user))
-    .then(user => dispatch(authUser(user.uid)))
-    .catch(error => dispatch(fetchingUserFailure(error)));
+      .then(({ user }) => saveUser(user))
+      .then((user) => dispatch(authUser(user.uid)))
+      .catch(error => dispatch(fetchingUserFailure(error)));
   };
 }
 
 export function logoutAndUnauth() {
-  return function (dispatch) {
+  return function(dispatch) {
     logout();
     dispatch(unauthUser());
   };
@@ -73,12 +74,11 @@ export function removeFetchingUser() {
 }
 
 export function fetchAndHandleUser(uid) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(fetchingUser());
-
     return fetchUser(uid)
-      .then(user => dispatch(fetchingUserSuccess(uid, user, Date.now())))
-      .catch(error => dispatch(fetchingUserFailure(error)));
+      .then((user) => dispatch(fetchingUserSuccess(uid, user, Date.now())))
+      .catch((error) => dispatch(fetchingUserFailure(error)));
   };
 }
 
@@ -93,13 +93,13 @@ const initialUserState = {
 
 function user(state = initialUserState, action) {
   switch (action.type) {
-    case FETCHING_USER_SUCCESS :
+    case FETCHING_USER_SUCCESS:
       return {
         ...state,
         info: action.user,
         lastUpdated: action.timestamp
       };
-    default :
+    default:
       return state;
   }
 }
@@ -113,13 +113,13 @@ const initialState = {
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-    case AUTH_USER :
+    case AUTH_USER:
       return {
         ...state,
         isAuthed: true,
         authedId: action.uid
       };
-    case UNAUTH_USER :
+    case UNAUTH_USER:
       return {
         ...state,
         isAuthed: false,
@@ -136,7 +136,7 @@ export default function users(state = initialState, action) {
         isFetching: false,
         error: action.error
       };
-    case REMOVE_FETCHING_USER :
+    case REMOVE_FETCHING_USER:
       return {
         ...state,
         isFetching: false
@@ -154,7 +154,7 @@ export default function users(state = initialState, action) {
           error: '',
           [action.uid]: user(state[action.uid], action)
         };
-    default :
+    default:
       return state;
   }
 }

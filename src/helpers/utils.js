@@ -8,7 +8,7 @@ export function formatUserInfo(name, avatar, uid) {
   };
 }
 
-export function formatDuck(text, {name, avatar, uid}) {
+export function formatDuck(text, { name, avatar, uid }) {
   return {
     text,
     name,
@@ -20,7 +20,7 @@ export function formatDuck(text, {name, avatar, uid}) {
 
 export function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 }
 
 function getMilliseconds(timestamp) {
@@ -39,12 +39,12 @@ export function staleReplies(timestamp) {
   return getMilliseconds(timestamp) > repliesExpirationLength;
 }
 
-export function formatReply({name, uid, avatar}, reply) {
+export function formatReply({ name, avatar, uid }, reply) {
   return {
     name,
-    reply,
+    avatar,
     uid,
-    timestamp: Date.now(),
-    avatar
+    reply,
+    timestamp: Date.now()
   };
 }

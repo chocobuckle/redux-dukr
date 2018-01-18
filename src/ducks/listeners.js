@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const ADD_LISTENER = 'ADD_LISTENER';
 
 export function addListener(listenerId) {
@@ -9,12 +10,12 @@ export function addListener(listenerId) {
 
 export default function listeners(state = {}, action) {
   switch (action.type) {
-    case ADD_LISTENER :
+    case ADD_LISTENER:
       return {
         ...state,
         [action.listenerId]: true
       };
-    default :
+    default:
       return state;
   }
 }

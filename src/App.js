@@ -1,22 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { injectGlobal } from 'styled-components';
 import routeProtection from 'helpers/routeProtection';
 import { MainContainer, AuthenticateContainer, HomeContainer, FeedContainer,
   LogoutContainer, UserContainer, DuckDetailsContainer } from 'containers';
-
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
-  html {
-    box-sizing: border-box;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-`;
 
 function App() {
   return (

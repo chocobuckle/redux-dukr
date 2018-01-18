@@ -11,22 +11,28 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 
 function NavLinks({ isAuthed }) {
   return isAuthed === true
-    ? <List>
-      <ListItem><RouterLink to='/'>{'Home'}</RouterLink></ListItem>
-    </List>
+    ? (
+      <List>
+        <ListItem><RouterLink to='/'>Home</RouterLink></ListItem>
+      </List>
+    )
     : null;
 }
 
 function ActionLinks({ isAuthed }) {
   return isAuthed === true
-    ? <List>
-      <ListItem><ModalContainer /></ListItem>
-      <ListItem><RouterLink to='/logout'>{'Logout'}</RouterLink></ListItem>
-    </List>
-    : <List>
-      <ListItem><RouterLink to='/'>{'Home'}</RouterLink></ListItem>
-      <ListItem><RouterLink to='/auth'>{'Authenticate'}</RouterLink></ListItem>
-    </List>;
+    ? (
+      <List>
+        <ListItem><ModalContainer /></ListItem>
+        <ListItem><RouterLink to='/logout'>Logout</RouterLink></ListItem>
+      </List>
+    )
+    : (
+      <List>
+        <ListItem><RouterLink to='/'>Home</RouterLink></ListItem>
+        <ListItem><RouterLink to='/auth'>Authenticate</RouterLink></ListItem>
+      </List>
+    );
 }
 
 function Navigation({ isAuthed }) {
@@ -50,19 +56,19 @@ const RouterLink = styled(Link)`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
   color: #4a90e2;
   font-size: 18px;
+  width: 100%;
 `;
 
 const NavWrapper = styled.nav`
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1100px;
   margin: 0px auto;
+  max-width: 1100px;
+  width: 100%;
 `;
 
 const List = styled.ul`

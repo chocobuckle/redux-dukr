@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { centeredContainer, largeHeader, subHeader } from 'sharedStyles/styles';
+import { centeredContainer, largeHeader, subHeader } from 'sharedStyles';
 
 function Home() {
   return (
     <Wrapper>
-      <AppTitle>{'Duckr'}</AppTitle>
+      <AppTitle>Duckr</AppTitle>
       <AppSummary>
-        {'A real time, cloud-based, growth hacking, disruptive, modular and scalable social platform.'}
+        A real time, cloud-based, growth hacking, disruptive, modular and scalable social platform.
         <br />
-        {'All the buzzwords venture capitalists like!'}
+        All the buzzwords venture capitalists like!
         <br />
-        {'Sigh.'}
+        Sigh.
       </AppSummary>
     </Wrapper>
   );

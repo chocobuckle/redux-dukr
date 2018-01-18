@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, string, arrayOf } from 'prop-types';
 import styled from 'styled-components';
 import { DuckContainer } from 'containers';
-import { errorMsg, subHeader } from 'sharedStyles/styles';
+import { errorMsg, subHeader } from 'sharedStyles';
 
 User.propTypes = {
   duckIds: arrayOf(string).isRequired,
@@ -21,27 +21,39 @@ function User({
 }) {
   return noUser === true
     ? <Text>{'This user doesn\'t exist.'}</Text>
-    : <div>
-      {isFetching === true
-          ? <Text>{'Loading'}</Text>
-          : <div>
-            <Wrapper>
-              <div>{name}</div>
-            </Wrapper>
-            {duckIds.map(id => (
-              <DuckContainer
-                duckId={id}
-                key={id}
-              />
-              ))}
-            {duckIds.size === 0
-                ? <Text>
-                  {`It looks like ${name.split(' ')[0]} hasn't made any ducks yet.`}
-                </Text>
-                : null}
-          </div>}
-      {error ? <ErrorMsg>{error}</ErrorMsg> : null}
-    </div>;
+    : (
+      <div>
+        {
+          isFetching === true
+            ? <Text>Loading</Text>
+            : (
+              <div>
+                <Wrapper>
+                  <div>{name}</div>
+                </Wrapper>
+                {
+                  duckIds.map(id => (
+                    <DuckContainer
+                      duckId={id}
+                      key={id}
+                    />
+                  ))
+                }
+                {
+                  duckIds.size === 0
+                    ? <Text>{`It looks like ${name.split(' ')[0]} hasn't made any ducks yet.`}</Text>
+                    : null
+                }
+              </div>
+            )
+        }
+        {
+          error
+            ? <ErrorMsg>{error}</ErrorMsg>
+            : null
+        }
+      </div>
+    );
 }
 
 const Text = styled.p`
@@ -50,11 +62,11 @@ const Text = styled.p`
 
 const Wrapper = styled.div`
   ${subHeader}
-  display: flex;
-  text-align: center;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
 `;
 
 const ErrorMsg = styled.p`

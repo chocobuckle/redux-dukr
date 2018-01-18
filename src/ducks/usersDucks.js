@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { fetchUsersDucks } from 'helpers/api';
 import { addMultipleDucks } from 'ducks/ducks';
 
@@ -45,30 +46,27 @@ const initialUsersDuckState = {
 
 function usersDuck(state = initialUsersDuckState, action) {
   switch (action.type) {
-    case ADD_SINGLE_USERS_DUCK :
+    case ADD_SINGLE_USERS_DUCK:
       return {
         ...state,
         duckIds: state.duckIds.concat([action.duckId])
       };
-    default :
+    default:
       return state;
   }
 }
 
 export function fetchAndHandleUsersDucks(uid) {
-  return function (dispatch, getState) {
+  return function(dispatch) {
     dispatch(fetchingUsersDucks());
-
     fetchUsersDucks(uid)
-      .then(ducks => dispatch(addMultipleDucks(ducks)))
-      .then(({ducks}) => dispatch(
-        fetchingUsersDucksSuccess(
-          uid,
-          Object.keys(ducks).sort((a, b) => ducks[b].timestamp - ducks[a].timestamp),
-          Date.now())
-        )
-      )
-      .catch(error => dispatch(fetchingUsersDucksError(error)));
+      .then((ducks) => dispatch(addMultipleDucks(ducks)))
+      .then(({ ducks }) => dispatch(fetchingUsersDucksSuccess(
+        uid,
+        Object.keys(ducks).sort((a, b) => ducks[b].timestamp - ducks[a].timestamp),
+        Date.now()
+      )))
+      .catch((error) => dispatch(fetchingUsersDucksError(error)));
   };
 }
 
@@ -79,18 +77,18 @@ const initialState = {
 
 export default function usersDucks(state = initialState, action) {
   switch (action.type) {
-    case FETCHING_USERS_DUCKS :
+    case FETCHING_USERS_DUCKS:
       return {
         ...state,
         isFetching: true
       };
-    case FETCHING_USERS_DUCKS_ERROR :
+    case FETCHING_USERS_DUCKS_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    case FETCHING_USERS_DUCKS_SUCCESS :
+    case FETCHING_USERS_DUCKS_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -100,7 +98,7 @@ export default function usersDucks(state = initialState, action) {
           duckIds: action.duckIds
         }
       };
-    case ADD_SINGLE_USERS_DUCK :
+    case ADD_SINGLE_USERS_DUCK:
       return typeof state[action.uid] === 'undefined'
         ? state
         : {
@@ -109,7 +107,7 @@ export default function usersDucks(state = initialState, action) {
           error: '',
           [action.uid]: usersDuck(state[action.uid], action)
         };
-    default :
+    default:
       return state;
   }
 }

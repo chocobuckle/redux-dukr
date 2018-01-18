@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { shape, string, number, bool } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { Duck } from 'components';
 import * as usersLikesActionCreators from 'ducks/usersLikes';
 
@@ -16,29 +16,53 @@ class DuckContainer extends Component {
       timestamp: number.isRequired,
       uid: string.isRequired
     }).isRequired,
-    hideReplyBtn: bool.isRequired
+    match: shape({
+      isExact: bool.isRequired,
+      params: shape({
+        duckId: string
+      }),
+      path: string.isRequired,
+      url: string.isRequired
+    }).isRequired,
+    hideReplyBtn: bool,
+    hideLikeCount: bool,
+    toProfile: bool,
+    toDuckDetail: bool
   };
 
   static defaultProps = {
     hideReplyBtn: false,
-    hideLikeCount: true
+    hideLikeCount: true,
+    toProfile: false,
+    toDuckDetail: false
   };
+
+  state = {
+    toProfile: false,
+    toDuckDetail: false
+  }
 
   goToProfile = (e) => {
     e.stopPropagation();
-    this.props.history.push(`/${this.props.duck.uid}`);
+    if (this.props.match.path !== '/:uid') {
+      this.setState({ toProfile: true });
+    }
   };
 
   handleClick = (e) => {
     e.preventDefault();
-    this.props.history.push(`/duckDetail/${this.props.duck.duckId}`);
+    this.setState({ toDuckDetail: true });
   };
 
   render() {
+    const { toProfile, toDuckDetail } = this.state;
+    const { duck, hideReplyBtn } = this.props;
+    if (toProfile) return <Redirect push to={{ pathname: `/${duck.uid}` }} />;
+    if (toDuckDetail) return <Redirect push to={{ pathname: `/duckDetail/${duck.duckId}` }} />;
     return (
       <Duck
         goToProfile={this.goToProfile}
-        onClick={this.props.hideReplyBtn === true ? null : this.handleClick}
+        onClick={hideReplyBtn === true ? null : this.handleClick}
         {...this.props}
       />
     );
@@ -50,9 +74,9 @@ function mapStateToProps(
   { duckId, hideLikeCount, hideReplyBtn }
 ) {
   return {
-    duck: ducks[duckId],
     hideLikeCount,
     hideReplyBtn,
+    duck: ducks[duckId],
     isLiked: usersLikes[duckId] === true,
     numberOfLikes: likeCount[duckId]
   };

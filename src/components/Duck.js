@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { formatTimestamp } from 'helpers/utils';
 import Reply from 'react-icons/lib/fa/mail-reply';
 import Star from 'react-icons/lib/fa/star';
-import { baseDuckContainer, baseAvatar, clickable } from 'sharedStyles/styles';
+import { baseDuckContainer, baseAvatar, clickable } from 'sharedStyles';
 
 Duck.propTypes = {
   duck: shape({
@@ -37,21 +37,21 @@ function Duck({
   goToProfile
 }) {
   const starIcon = isLiked === true
-  ? {
-    color: '#4a90e2',
-    height: 25,
-    width: 25,
-    marginRight: 5,
-    cursor: 'pointer',
-    transition: 'all .2s ease-in-out'
-  }
-  : {
-    height: 25,
-    width: 25,
-    marginRight: 5,
-    cursor: 'pointer',
-    transition: 'all .2s ease-in-out'
-  };
+    ? {
+      color: '#4a90e2',
+      height: 25,
+      width: 25,
+      marginRight: 5,
+      cursor: 'pointer',
+      transition: 'all .2s ease-in-out'
+    }
+    : {
+      height: 25,
+      width: 25,
+      marginRight: 5,
+      cursor: 'pointer',
+      transition: 'all .2s ease-in-out'
+    };
   const starFn = isLiked === true ? handleDeleteLike : addAndHandleLike;
   return (
     <DuckWrapper
@@ -101,10 +101,10 @@ const ReplyIcon = styled(Reply)`
 
 const DuckWrapper = styled.div`
   ${baseDuckContainer};
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
 
   &:hover {
     background: #F1F1F1;
@@ -116,20 +116,20 @@ const DuckAvatar = styled.img`
 `;
 
 const DuckContentWrapper = styled.div`
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
   flex: 1;
+  justify-content: space-between;
 `;
 
 const DuckHeader = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
   font-size: 18px;
   font-weight: bold;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const DuckAuthor = styled.div`
@@ -137,24 +137,24 @@ const DuckAuthor = styled.div`
 `;
 
 const DuckText = styled.div`
-  padding: 8px 0;
   font-size: 20px;
   line-height: 25px;
+  padding: 8px 0;
 `;
 
 const LikeReplyWrapper = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
 `;
 
 const ActionWrapper = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  font-size: 18px;
   margin-right: 15px;
-  font-size: 18px
 `;
 
 export default Duck;

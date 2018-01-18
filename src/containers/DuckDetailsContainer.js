@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, string, object, func } from 'prop-types';
+import { bool, string, shape, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DuckDetails } from 'components';
@@ -9,8 +9,12 @@ import * as repliesActionCreators from 'ducks/replies';
 
 class DuckDetailsContainer extends Component {
   static propTypes = {
+    authedUser: shape({
+      avatar: string.isRequired,
+      name: string.isRequired,
+      uid: string.isRequired
+    }).isRequired,
     addAndHandleReply: func.isRequired,
-    authedUser: object.isRequired,
     duckAlreadyFetched: bool.isRequired,
     duckId: string.isRequired,
     error: string.isRequired,

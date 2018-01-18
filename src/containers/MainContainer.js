@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { bool, func, object, oneOfType, string } from 'prop-types';
+import { bool, func, object, oneOfType, string, element } from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Navigation } from 'components';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -12,44 +12,55 @@ import { firebaseAuth } from 'config/constants';
 
 class MainContainer extends Component {
   static propTypes = {
-    authUser: func.isRequired,
-    fetchingUserSuccess: func.isRequired,
-    isAuthed: bool.isRequired,
-    isFetching: bool.isRequired,
     location: oneOfType([
       object.isRequired,
       string.isRequired
     ]).isRequired,
+    children: element.isRequired,
+    authUser: func.isRequired,
+    fetchingUserSuccess: func.isRequired,
+    isAuthed: bool.isRequired,
+    isFetching: bool.isRequired,
     removeFetchingUser: func.isRequired,
     setUsersLikes: func.isRequired
   };
 
   componentDidMount() {
-    firebaseAuth().onAuthStateChanged(user => {
+    const {
+      authUser,
+      fetchingUserSuccess,
+      setUsersLikes,
+      location,
+      removeFetchingUser
+    } = this.props;
+    firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         const userData = user.providerData[0];
         const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid);
-        this.props.authUser(user.uid);
-        this.props.fetchingUserSuccess(user.uid, userInfo, Date.now());
-        this.props.setUsersLikes();
-        if (this.props.location.pathname === '/') {
-          this.props.history.replace('feed');
+        authUser(user.uid);
+        fetchingUserSuccess(user.uid, userInfo, Date.now());
+        setUsersLikes();
+        if (location.pathname === '/') {
+          return <Redirect to='feed' />;
         }
       } else {
-        this.props.removeFetchingUser();
+        removeFetchingUser();
       }
     });
   }
 
   render() {
-    return this.props.isFetching === true
+    const { isFetching, isAuthed, children } = this.props;
+    return isFetching === true
       ? null
-      : <OuterWrapper>
-        <Navigation isAuthed={this.props.isAuthed} />
-        <InnerWrapper>
-          {this.props.children}
-        </InnerWrapper>
-      </OuterWrapper>;
+      : (
+        <OuterWrapper>
+          <Navigation isAuthed={isAuthed} />
+          <InnerWrapper>
+            {children}
+          </InnerWrapper>
+        </OuterWrapper>
+      );
   }
 }
 
@@ -61,8 +72,9 @@ const OuterWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  max-width: 900px;
   margin: 0px auto;
+  max-width: 900px;
+  width: 100%;
 `;
 
 function mapStateToProps({ users }) {
