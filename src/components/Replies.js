@@ -27,8 +27,8 @@ function Replies({ replies, error, isFetching }) {
           : null
       }
       {
-        isFetching === true
-          ? <p>Fetching Replies</p>
+        isFetching
+          ? null
           : (
             <div>
               <Header>Replies</Header>

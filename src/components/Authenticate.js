@@ -1,20 +1,19 @@
 import React from 'react';
-import { string, bool, func } from 'prop-types';
+import { string, func } from 'prop-types';
 import styled from 'styled-components';
 import { FacebookAuthButton } from 'components';
 import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles';
 
 Authenticate.propTypes = {
   error: string.isRequired,
-  isFetching: bool.isRequired,
   onAuth: func.isRequired
 };
 
-function Authenticate({ onAuth, isFetching, error }) {
+function Authenticate({ onAuth, error }) {
   return (
     <Wrapper>
       <Header>Authenticate</Header>
-      <FacebookAuthButton isFetching={isFetching} onAuth={onAuth} />
+      <FacebookAuthButton onAuth={onAuth} />
       {
         error
           ? <ErrorMsg>{error}</ErrorMsg>

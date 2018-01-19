@@ -24,8 +24,8 @@ function User({
     : (
       <div>
         {
-          isFetching === true
-            ? <Text>Loading</Text>
+          isFetching
+            ? null
             : (
               <div>
                 <Wrapper>

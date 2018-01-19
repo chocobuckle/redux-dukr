@@ -10,7 +10,7 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 };
 
 function NavLinks({ isAuthed }) {
-  return isAuthed === true
+  return isAuthed
     ? (
       <List>
         <ListItem><RouterLink to='/'>Home</RouterLink></ListItem>
@@ -20,7 +20,7 @@ function NavLinks({ isAuthed }) {
 }
 
 function ActionLinks({ isAuthed }) {
-  return isAuthed === true
+  return isAuthed
     ? (
       <List>
         <ListItem><ModalContainer /></ListItem>

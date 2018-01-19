@@ -2,7 +2,7 @@ import React from 'react';
 import { string, bool, func, arrayOf } from 'prop-types';
 import styled from 'styled-components';
 import { DuckContainer } from 'containers';
-import { NewDucksAvailable } from 'components';
+import { NewDucksAvailable, Spinner } from 'components';
 import { errorMsg, subHeader } from 'sharedStyles';
 
 Feed.propTypes = {
@@ -21,7 +21,7 @@ function Feed({
   resetNewDucksAvailable
 }) {
   return isFetching === true
-    ? <Header>Fetching</Header>
+    ? <Spinner />
     : (
       <div>
         {

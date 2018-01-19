@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bool, func, object, oneOfType, string, element } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { Navigation } from 'components';
+import { Navigation, Spinner } from 'components';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as usersLikesActionCreators from 'ducks/usersLikes';
@@ -51,16 +51,16 @@ class MainContainer extends Component {
 
   render() {
     const { isFetching, isAuthed, children } = this.props;
-    return isFetching === true
-      ? null
-      : (
-        <OuterWrapper>
-          <Navigation isAuthed={isAuthed} />
-          <InnerWrapper>
-            {children}
-          </InnerWrapper>
-        </OuterWrapper>
-      );
+    return (
+      <OuterWrapper>
+        <Navigation isAuthed={isAuthed} />
+        {
+          isFetching
+            ? <Spinner />
+            : <InnerWrapper>{children}</InnerWrapper>
+        }
+      </OuterWrapper>
+    );
   }
 }
 

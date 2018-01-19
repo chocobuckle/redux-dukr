@@ -7,16 +7,8 @@ FacebookAuthButton.propTypes = {
   isFetching: bool.isRequired
 };
 
-function FacebookAuthButton({ onAuth, isFetching }) {
-  return (
-    <Button onClick={onAuth}>
-      {
-        isFetching === true
-          ? 'Loading'
-          : 'Login with Facebook'
-      }
-    </Button>
-  );
+function FacebookAuthButton({ onAuth }) {
+  return <Button onClick={onAuth}>Login with Facebook</Button>
 }
 
 const Button = styled.button`

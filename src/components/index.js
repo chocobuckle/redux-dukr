@@ -12,3 +12,5 @@ export { default as Replies } from './Replies';
 export { default as Reply } from './Reply';
 export { default as ReplyForm } from './ReplyForm';
 export { default as NewDucksAvailable } from './NewDucksAvailable';
+export { default as Loading } from './Loading';
+export { default as Spinner } from './Spinner';

@@ -2,7 +2,7 @@ import React from 'react';
 import { func, shape, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import { DuckContainer, RepliesContainer, ReplyFormContainer } from 'containers';
-import { errorMsg, subHeader } from 'sharedStyles';
+import { errorMsg } from 'sharedStyles';
 import { formatReply } from 'helpers/utils';
 
 DuckDetails.propTypes = {
@@ -21,8 +21,8 @@ function DuckDetails({ duckId, isFetching, authedUser, error, addAndHandleReply 
   return (
     <DuckDetailsWrapper>
       {
-        isFetching === true
-          ? <Fetching>Fetching</Fetching>
+        isFetching
+          ? null
           : (
             <DuckContentAndRepliesWrapper>
               <DuckContent>
@@ -61,10 +61,6 @@ const DuckContent = styled.div`
 
 const RepliesWrapper = styled.div`
   flex: 3;
-`;
-
-const Fetching = styled.p`
-  ${subHeader}
 `;
 
 const ErrorMsg = styled.p`
