@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, func } from 'prop-types';
 import styled from 'styled-components';
-import { FacebookAuthButton } from 'components';
+import { AuthButton } from 'components';
 import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles';
 
 Authenticate.propTypes = {
@@ -13,7 +13,9 @@ function Authenticate({ onAuth, error }) {
   return (
     <Wrapper>
       <Header>Authenticate</Header>
-      <FacebookAuthButton onAuth={onAuth} />
+      <AuthButton authType='Facebook' onAuth={(e) => onAuth(e, 'Facebook')} />
+      <AuthButton authType='Github' onAuth={(e) => onAuth(e, 'Github')} />
+{/*      <AuthButton authType='Email' onAuth={(e) => onAuth(e, 'Email')} />*/}
       {
         error
           ? <ErrorMsg>{error}</ErrorMsg>

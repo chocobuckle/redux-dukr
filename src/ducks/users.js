@@ -46,10 +46,10 @@ export function fetchingUserSuccess(uid, user, timestamp) {
   };
 }
 
-export function fetchAndHandleAuthedUser() {
+export function fetchAndHandleAuthedUser(authType) {
   return (dispatch) => {
     dispatch(fetchingUser());
-    return auth().then(({ user }) => {
+    return auth(authType).then(({ user }) => {
       const userData = user.providerData[0];
       const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid);
       return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()));

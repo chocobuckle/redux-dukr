@@ -1,7 +1,9 @@
 import { ref, firebaseAuth } from 'config/constants';
 
-export default function auth() {
-  return firebaseAuth().signInWithPopup(new firebaseAuth.FacebookAuthProvider());
+export default function auth(authType) {
+  return firebaseAuth().signInWithPopup(authType === 'Facebook'
+    ? new firebaseAuth.FacebookAuthProvider()
+    : new firebaseAuth.GithubAuthProvider());
 }
 
 export function checkIfAuthed(store) {

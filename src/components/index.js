@@ -1,7 +1,7 @@
 export { default as Home } from './Home';
 export { default as Navigation } from './Navigation';
 export { default as Authenticate } from './Authenticate';
-export { default as FacebookAuthButton } from './FacebookAuthButton';
+export { default as AuthButton } from './AuthButton';
 export { default as Feed } from './Feed';
 export { default as Logout } from './Logout';
 export { default as Modal } from './Modal';
@@ -12,5 +12,4 @@ export { default as Replies } from './Replies';
 export { default as Reply } from './Reply';
 export { default as ReplyForm } from './ReplyForm';
 export { default as NewDucksAvailable } from './NewDucksAvailable';
-export { default as Loading } from './Loading';
 export { default as Spinner } from './Spinner';

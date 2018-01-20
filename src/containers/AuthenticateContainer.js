@@ -14,9 +14,9 @@ class AuthenticateContainer extends Component {
     error: string.isRequired
   };
 
-  handleAuth = (e) => {
+  handleAuth = (e, authType) => {
     e.preventDefault();
-    this.props.fetchAndHandleAuthedUser();
+    this.props.fetchAndHandleAuthedUser(authType);
   };
 
   render() {
