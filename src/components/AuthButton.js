@@ -21,21 +21,22 @@ const Button = styled.button`
   ${({ authType }) => {
     switch (authType) {
       case 'Facebook':
-        return 'background: #3B5998;';
+        return 'background: #3B5998';
       case 'Github':
-        return 'background: #24292e;';
+        return 'background: #24292e';
       case 'Email':
-        return 'background: #1b691a;';
+        return 'background: #1b691a';
       default:
         return null;
     }
-  }}
+  }};
   border-radius: 5px;
   border-width: 0;
   color: #fff;
   cursor: pointer;
   font-size: 25px;
   margin-bottom: 0.625em;
+  outline: none;
   padding: 0.5em 0.25em;
   width: 11em;
 
@@ -43,15 +44,15 @@ const Button = styled.button`
   ${({ authType }) => {
     switch (authType) {
       case 'Facebook':
-        return 'background: #1542A0;';
+        return 'background: #1542A0';
       case 'Github':
-        return 'background: #15181b;';
+        return 'background: #15181b';
       case 'Email':
-        return 'background: #0f820f;';
+        return 'background: #0f820f';
       default:
         return null;
     }
-  }}
+  }};
   }
 `;
 

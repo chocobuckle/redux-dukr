@@ -26,7 +26,12 @@ function DuckDetails({ duckId, isFetching, authedUser, error, addAndHandleReply 
           : (
             <DuckContentAndRepliesWrapper>
               <DuckContent>
-                <DuckContainer duckId={duckId} hideLikeCount={false} hideReplyBtn />
+                <DuckContainer
+                  duckId={duckId}
+                  hideLikeCount={false}
+                  hideReplyBtn
+                  noBackgroundChangeOnHover
+                />
                 <ReplyFormContainer submit={replyText => {
                   addAndHandleReply(duckId, formatReply(authedUser, replyText));
                 }}

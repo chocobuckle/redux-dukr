@@ -7,7 +7,7 @@ function Home() {
     <Wrapper>
       <AppTitle>Duckr</AppTitle>
       <AppSummary>
-        A real time, cloud-based, growth hacking, disruptive, modular and scalable social platform.
+        A realtime, cloud-based, growth hacking, disruptive, modular and scalable social platform.
         <br />
         All the buzzwords venture capitalists like!
         <br />

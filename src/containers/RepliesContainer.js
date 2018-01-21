@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bool, string, number, shape, objectOf, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Replies } from 'components';
 import { staleReplies } from 'helpers/utils';
 import * as repliesActionCreators from 'ducks/replies';
@@ -28,6 +29,11 @@ class RepliesContainer extends Component {
     replies: {}
   };
 
+  state = {
+    toProfile: false,
+    redirectToUid: ''
+  }
+
   componentDidMount() {
     const { lastUpdated, duckId, fetchAndHandleReplies } = this.props;
     if (staleReplies(lastUpdated)) {
@@ -35,10 +41,18 @@ class RepliesContainer extends Component {
     }
   }
 
+  goToProfile = (e, uid) => {
+    e.stopPropagation();
+    this.setState({ toProfile: true, redirectToUid: uid });
+  };
+
   render() {
     const { isFetching, error, lastUpdated, replies } = this.props;
+    const { toProfile, redirectToUid } = this.state;
+    if (toProfile) return <Redirect push to={{ pathname: `/${redirectToUid}` }} />;
     return (
       <Replies
+        goToProfile={this.goToProfile}
         isFetching={isFetching}
         error={error}
         lastUpdated={lastUpdated}

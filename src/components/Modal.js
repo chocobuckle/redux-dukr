@@ -76,6 +76,7 @@ function Modal({
 const DuckButton = styled.span`
   ${darkBtn}
   text-decoration: none;
+  outline: none;
 `;
 
 const DuckModalTop = styled.div`

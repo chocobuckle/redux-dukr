@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, number } from 'prop-types';
+import { shape, string, number, func } from 'prop-types';
 import styled, { css } from 'styled-components';
 import { formatTimestamp } from 'helpers/utils';
 import { clickable, baseAvatar } from 'sharedStyles';
@@ -12,15 +12,21 @@ Reply.propTypes = {
     replyId: string.isRequired,
     timestamp: number.isRequired,
     uid: string.isRequired
-  }).isRequired
+  }).isRequired,
+  goToProfile: func
 };
 
-function Reply({ reply }) {
+function Reply({ reply, goToProfile }) {
   return (
     <ReplyWrapper>
       <Avatar src={reply.avatar} alt={reply.name} />
       <div>
-        <AuthorName>{reply.name}</AuthorName>
+        <ReplyAuthor
+          role='link'
+          tabIndex={0}
+          onClick={(e) => goToProfile(e, reply.uid)}
+        >{reply.name}
+        </ReplyAuthor>
         <ReplyTime>{formatTimestamp(reply.timestamp)}</ReplyTime>
         <ReplyText>{reply.reply}</ReplyText>
       </div>
@@ -41,7 +47,7 @@ const Avatar = styled.img`
   ${baseAvatar}
 `;
 
-const AuthorName = styled.div`
+const ReplyAuthor = styled.div`
   ${clickable}
   font-weight: bold;
 `;

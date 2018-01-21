@@ -30,7 +30,7 @@
 		"jsx-quotes": ["error", "prefer-single"],
 		"linebreak-style": "off",
 		"no-alert": "warn",
-		"no-confusing-arrow": "warn",
+		"no-confusing-arrow": "off",
 		"no-console": "warn",
 		"no-extend-native": "off",
 		"no-multi-spaces": "off",

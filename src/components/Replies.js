@@ -1,12 +1,10 @@
 import React from 'react';
-import { bool, string, number, shape } from 'prop-types';
+import { bool, string, number, shape, func } from 'prop-types';
 import { Reply } from 'components';
 import styled from 'styled-components';
 import { errorMsg, center } from 'sharedStyles';
 
 Replies.propTypes = {
-  error: string.isRequired,
-  isFetching: bool.isRequired,
   replies: shape({
     avatar: string,
     name: string,
@@ -14,10 +12,13 @@ Replies.propTypes = {
     replyId: string,
     timestamp: number,
     uid: string
-  }).isRequired
+  }).isRequired,
+  error: string.isRequired,
+  isFetching: bool.isRequired,
+  goToProfile: func.isRequired
 };
 
-function Replies({ replies, error, isFetching }) {
+function Replies({ replies, error, isFetching, goToProfile }) {
   const replyIds = Object.keys(replies);
   return (
     <div>
@@ -34,7 +35,7 @@ function Replies({ replies, error, isFetching }) {
               <Header>Replies</Header>
               {
                 replyIds.map(replyId => (
-                  <Reply key={replyId} reply={replies[replyId]} />
+                  <Reply key={replyId} reply={replies[replyId]} goToProfile={goToProfile} />
                 ))
               }
             </div>

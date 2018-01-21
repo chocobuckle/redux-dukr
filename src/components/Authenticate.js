@@ -15,7 +15,7 @@ function Authenticate({ onAuth, error }) {
       <Header>Authenticate</Header>
       <AuthButton authType='Facebook' onAuth={(e) => onAuth(e, 'Facebook')} />
       <AuthButton authType='Github' onAuth={(e) => onAuth(e, 'Github')} />
-{/*      <AuthButton authType='Email' onAuth={(e) => onAuth(e, 'Email')} />*/}
+      {/* <AuthButton authType='Email' onAuth={(e) => onAuth(e, 'Email')} /> */}
       {
         error
           ? <ErrorMsg>{error}</ErrorMsg>

@@ -24,6 +24,7 @@ function Feed({
     ? <Spinner />
     : (
       <div>
+        <Header>Feed</Header>
         {
           newDucksAvailable
             ? <NewDucksAvailable handleClick={resetNewDucksAvailable} />
@@ -32,11 +33,11 @@ function Feed({
         {
           duckIds.length === 0
             ? (
-              <Header>
+              <NoDucks>
                 {'Well, this is unfortunate.'}
                 <br />
                 {'It appears there are no ducks yet! 😞'}
-              </Header>
+              </NoDucks>
             )
             : null
         }
@@ -59,6 +60,10 @@ function Feed({
 
 const Header = styled.h1`
   ${subHeader}
+`;
+
+const NoDucks = Header.extend`
+  font-size: 25px;
 `;
 
 const ErrorMsg = styled.p`

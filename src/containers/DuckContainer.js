@@ -27,7 +27,8 @@ class DuckContainer extends Component {
     hideReplyBtn: bool,
     hideLikeCount: bool,
     toProfile: bool,
-    toDuckDetail: bool
+    toDuckDetail: bool,
+    noBackgroundChangeOnHover: bool
   };
 
   static defaultProps = {

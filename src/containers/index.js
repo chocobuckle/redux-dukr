@@ -1,11 +1,11 @@
-export { default as MainContainer } from './MainContainer';
-export { default as HomeContainer } from './HomeContainer';
 export { default as AuthenticateContainer } from './AuthenticateContainer';
-export { default as FeedContainer } from './FeedContainer';
-export { default as LogoutContainer } from './LogoutContainer';
-export { default as ModalContainer } from './ModalContainer';
 export { default as DuckContainer } from './DuckContainer';
-export { default as UserContainer } from './UserContainer';
 export { default as DuckDetailsContainer } from './DuckDetailsContainer';
+export { default as FeedContainer } from './FeedContainer';
+export { default as HomeContainer } from './HomeContainer';
+export { default as LogoutContainer } from './LogoutContainer';
+export { default as MainContainer } from './MainContainer';
+export { default as ModalContainer } from './ModalContainer';
 export { default as RepliesContainer } from './RepliesContainer';
 export { default as ReplyFormContainer } from './ReplyFormContainer';
+export { default as UserContainer } from './UserContainer';

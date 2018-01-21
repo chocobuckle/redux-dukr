@@ -7,7 +7,7 @@
     "test": "cross-env NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "cross-env NODE_PATH=./src react-scripts eject",
     "fix": "eslint --ext .js --fix src/",
-    "deploy": "firebase deploy",
+    "deploy": "yarn build && firebase deploy",
     "firebase-init": "firebase login && firebase init"
   },
   "dependencies": {

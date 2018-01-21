@@ -15,6 +15,14 @@ Duck.propTypes = {
     timestamp: number.isRequired,
     uid: string.isRequired
   }),
+  match: shape({
+    isExact: bool.isRequired,
+    params: shape({
+      duckId: string
+    }),
+    path: string.isRequired,
+    url: string.isRequired
+  }).isRequired,
   onClick: func,
   isLiked: bool.isRequired,
   addAndHandleLike: func.isRequired,
@@ -22,7 +30,8 @@ Duck.propTypes = {
   numberOfLikes: number,
   hideReplyBtn: bool.isRequired,
   hideLikeCount: bool.isRequired,
-  goToProfile: func.isRequired
+  goToProfile: func.isRequired,
+  noBackgroundChangeOnHover: bool
 };
 
 function Duck({
@@ -34,7 +43,9 @@ function Duck({
   numberOfLikes,
   hideReplyBtn,
   hideLikeCount,
-  goToProfile
+  goToProfile,
+  noBackgroundChangeOnHover,
+  match
 }) {
   const starIcon = isLiked === true
     ? {
@@ -53,12 +64,14 @@ function Duck({
       transition: 'all .2s ease-in-out'
     };
   const starFn = isLiked === true ? handleDeleteLike : addAndHandleLike;
+  const { path } = match;
   return (
     <DuckWrapper
       style={{cursor: hideReplyBtn === true ? 'default' : 'pointer'}}
       onClick={onClick}
       role='link'
       tabIndex={0}
+      noBackgroundChangeOnHover={noBackgroundChangeOnHover}
     >
       <DuckAvatar src={duck.avatar} alt='facebook avatar' />
       <DuckContentWrapper>
@@ -67,6 +80,7 @@ function Duck({
             onClick={goToProfile}
             role='link'
             tabIndex={0}
+            path={path}
           >{duck.name}
           </DuckAuthor>
           <div>{formatTimestamp(duck.timestamp)}</div>
@@ -105,9 +119,10 @@ const DuckWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  outline: none;
 
   &:hover {
-    background: #F1F1F1;
+    ${(props) => props.noBackgroundChangeOnHover === true ? 'background: #fff' : 'background: #f1f1f1'};
   }
 `;
 
@@ -133,8 +148,13 @@ const DuckHeader = styled.div`
 `;
 
 const DuckAuthor = styled.div`
-  ${clickable};
+  ${({ path }) => path !== '/:uid' ? null : 'outline: none'};
+
+  &:hover {
+    ${({ path }) => path !== '/:uid' ? 'cursor: pointer; transition: all .2s ease-in-out; transform: scale(1.1)' : 'cursor: context-menu'};
+  }
 `;
+
 
 const DuckText = styled.div`
   font-size: 20px;
